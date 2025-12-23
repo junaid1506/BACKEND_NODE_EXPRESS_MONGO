@@ -1,5 +1,5 @@
 const fs = require('fs')
-fs.writeFile("Output.txt","Junaid Ansari" , (err)=>{
+fs.writeFile("index.html","<h1>Hello</h1>" , (err)=>{
   if(err){
     console.log(err)
   }else{

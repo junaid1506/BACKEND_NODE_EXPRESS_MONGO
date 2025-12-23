@@ -6,3 +6,5 @@ fs.writeFile("index.html","<h1>Hello</h1>" , (err)=>{
     console.log("File Written Succesfully")
   }
 })
+
+

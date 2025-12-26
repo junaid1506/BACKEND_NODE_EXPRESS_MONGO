@@ -1,104 +1,150 @@
 const http = require("http");
 const fs = require("fs");
-const PORT = 3000;
+const PORT = 3001;
 
 const server = http.createServer((req, res) => {
-  console.log(req.method, req.url);
-  res.setHeader("Content-Type", "text/html");
-
   if (req.url === "/") {
     res.write(`
-    <!DOCTYPE html>
+      <!DOCTYPE html>
 <html>
 <head>
-  <title>Styled Form</title>
+<title>User Form</title>
 
-  <style>
-    body{
-      font-family: Arial;
-      background:#f4f4f4;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-    }
+<style>
 
-    .form-box{
-      background:white;
-      padding:20px 30px;
-      border-radius:10px;
-      box-shadow:0 0 15px rgba(0,0,0,0.1);
-      width:300px;
-    }
+*{
+  box-sizing:border-box;
+}
 
-    .form-box h2{
-      text-align:center;
-    }
+body{
+  margin:0;
+  font-family: Poppins, Arial;
+  background: linear-gradient(135deg,#667eea,#764ba2);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
-    label{
-      font-weight:bold;
-    }
+.card{
+  background: rgba(255,255,255,0.95);
+  padding:30px 35px;
+  width:350px;
+  border-radius:18px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  animation: fadeIn .4s ease;
+}
 
-    input, button{
-      width:100%;
-      padding:8px;
-      margin:8px 0;
-    }
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
 
-    button{
-      background:#007bff;
-      color:white;
-      border:none;
-      border-radius:5px;
-      cursor:pointer;
-    }
+.card h2{
+  text-align:center;
+  margin-bottom:20px;
+  color:#333;
+}
 
-    button:hover{
-      background:#0056b3;
-    }
-  </style>
+label{
+  font-weight:600;
+  color:#444;
+}
+
+input, select{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  margin-top:5px;
+  margin-bottom:12px;
+  font-size:14px;
+}
+
+input:focus, select:focus{
+  outline:none;
+  border-color:#667eea;
+  box-shadow:0 0 5px rgba(102,126,234,.6);
+}
+
+button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#667eea;
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover{
+  background:#5464d6;
+  transform: translateY(-1px);
+}
+
+.footer{
+  text-align:center;
+  margin-top:10px;
+  font-size:12px;
+  color:#555;
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="form-box">
-    <h2>User Form</h2>
+<div class="card">
+  <h2>User Details</h2>
 
-    <form action="/submit" method="POST">
+  <form action="/submit" method="POST">
 
-      <label>Name:</label>
-      <input type="text" name="name" required>
+    <label>Name</label>
+    <input type="text" name="name" placeholder="Enter your name" required>
 
-      <label>Age:</label>
-      <input type="number" name="age" required>
+    <label>Age</label>
+    <input type="number" name="age" min="1" placeholder="Enter your age" required>
 
-      <label>Gender:</label>
-      <select name="gender" required>
-        <option value="">Select</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-      </select>
+    <label>Gender</label>
+    <select name="gender" required>
+      <option value="">Choose Gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
 
-      <button type="submit">Submit</button>
+    <button type="submit">Submit</button>
 
-    </form>
-  </div>
+  </form>
+
+  <div class="footer">Made with ❤ in Node.js</div>
+</div>
 
 </body>
-</html>
+</html>`);
 
-    
-    
-    `);
     return res.end();
   } else if (req.url.toLowerCase() === "/submit" && req.method === "POST") {
+    const body = [];
+    req.on("data", (chunk) => {
+      body.push(chunk);
+    });
+    req.on("end", () => {
+      const bodyObj = Buffer.concat(body).toString();
+      const params = new URLSearchParams(bodyObj);
+      const fullBody = Object.fromEntries(params);
+      fs.writeFileSync("user.txt", JSON.stringify(fullBody));
+    });
+
     res.statusCode = 302;
     res.setHeader("Location", "/");
-    return res.end();
   }
+  return res.end();
 });
 
 server.listen(PORT, () => {
-  console.log(`server run on https://localhost${PORT}`);
+  console.log("server is running");
 });

@@ -1,147 +1,104 @@
 const http = require("http");
+const fs = require("fs");
+const PORT = 3000;
 
 const server = http.createServer((req, res) => {
-  if (req.url === "/men") {
-    res.write(`<h1>Welcomme to Men`);
-    return res.end();
-  } else if (req.url === "/women") {
-    res.write(`<h1>Welcomme to Women`);
-    return res.end();
-  } else if (req.url === "/kids") {
-    res.write(`<h1>Welcomme to Kids`);
-    return res.end();
-  } else if (req.url === "/home&living") {
-    res.write(`<h1>Welcomme to Home & Living`);
-    return res.end();
-  } else if (req.url === "/beauty") {
-    res.write(`<h1>Welcomme to Beauty`);
-    return res.end();
-  } else if (req.url === "/studio") {
-    res.write(`<h1>Welcomme to Studio`);
-    return res.end();
-  }
+  console.log(req.method, req.url);
+  res.setHeader("Content-Type", "text/html");
 
-  res.write(`
-<html lang="en">
+  if (req.url === "/") {
+    res.write(`
+    <!DOCTYPE html>
+<html>
 <head>
-<title>Myntra Style Navbar</title>
+  <title>Styled Form</title>
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
-}
+  <style>
+    body{
+      font-family: Arial;
+      background:#f4f4f4;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
 
-.navbar{
-  width:100%;
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 40px;
-  border-bottom:1px solid #eee;
-}
+    .form-box{
+      background:white;
+      padding:20px 30px;
+      border-radius:10px;
+      box-shadow:0 0 15px rgba(0,0,0,0.1);
+      width:300px;
+    }
 
-.logo{
-  font-size:24px;
-  font-weight:700;
-  color:#ff3f6c;
-  letter-spacing:1px;
-}
+    .form-box h2{
+      text-align:center;
+    }
 
-.menu{
-  display:flex;
-  gap:25px;
-  font-size:14px;
-  font-weight:600;
-}
+    label{
+      font-weight:bold;
+    }
 
-.menu a{
-  text-decoration:none;
-  color:#000;
-}
+    input, button{
+      width:100%;
+      padding:8px;
+      margin:8px 0;
+    }
 
-.menu a:hover{
-  color:#ff3f6c;
-}
+    button{
+      background:#007bff;
+      color:white;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+    }
 
-.search-box{
-  flex:1;
-  max-width:350px;
-  margin:0 30px;
-  display:flex;
-  align-items:center;
-  border:1px solid #ccc;
-  border-radius:4px;
-  padding:7px 10px;
-}
-
-.search-box input{
-  width:100%;
-  border:none;
-  outline:none;
-  font-size:14px;
-}
-
-.right-icons{
-  display:flex;
-  gap:25px;
-  font-size:13px;
-  text-align:center;
-  cursor:pointer;
-}
-
-.icon{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-@media (max-width:900px){
-  .menu{
-    display:none;
-  }
-  .search-box{
-    max-width:220px;
-  }
-}
-
-</style>
+    button:hover{
+      background:#0056b3;
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="navbar">
+  <div class="form-box">
+    <h2>User Form</h2>
 
-  <div class="logo">MYNTRA</div>
+    <form action="/submit" method="POST">
 
-  <nav class="menu">
-    <a href="/men">MEN</a>
-    <a href="/women">WOMEN</a>
-    <a href="/kids">KIDS</a>
-    <a href="/home&living">HOME & LIVING</a>
-    <a href="/beauty">BEAUTY</a>
-    <a href="/studio">STUDIO</a>
-  </nav>
+      <label>Name:</label>
+      <input type="text" name="name" required>
 
-  <div class="search-box">
-    🔍
-    <input type="text" placeholder="Search for products, brands and more">
+      <label>Age:</label>
+      <input type="number" name="age" required>
+
+      <label>Gender:</label>
+      <select name="gender" required>
+        <option value="">Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+
+      <button type="submit">Submit</button>
+
+    </form>
   </div>
-
-</header>
-  
-  <h1>Welcome to Home</h1>
-
 
 </body>
 </html>
-`);
-  res.end();
+
+    
+    
+    `);
+    return res.end();
+  } else if (req.url.toLowerCase() === "/submit" && req.method === "POST") {
+    res.statusCode = 302;
+    res.setHeader("Location", "/");
+    return res.end();
+  }
 });
 
-server.listen(3000, () => {
-  console.log("Server is running");
+server.listen(PORT, () => {
+  console.log(`server run on https://localhost${PORT}`);
 });

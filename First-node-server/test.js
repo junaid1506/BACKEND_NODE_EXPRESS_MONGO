@@ -120,7 +120,7 @@ button:hover{
 
   </form>
 
-  <div class="footer">Made with ❤ in Node.js</div>
+  <div class="footer">Made with Node.js</div>
 </div>
 
 </body>

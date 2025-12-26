@@ -1,11 +1,29 @@
-const http =  require('http')
+const http = require("http");
 
-const server = http.createServer((req,res)=>{
-  res.write(`<!DOCTYPE html>
+const server = http.createServer((req, res) => {
+  if (req.url === "/men") {
+    res.write(`<h1>Welcomme to Men`);
+    return res.end();
+  } else if (req.url === "/women") {
+    res.write(`<h1>Welcomme to Women`);
+    return res.end();
+  } else if (req.url === "/kids") {
+    res.write(`<h1>Welcomme to Kids`);
+    return res.end();
+  } else if (req.url === "/home&living") {
+    res.write(`<h1>Welcomme to Home & Living`);
+    return res.end();
+  } else if (req.url === "/beauty") {
+    res.write(`<h1>Welcomme to Beauty`);
+    return res.end();
+  } else if (req.url === "/studio") {
+    res.write(`<h1>Welcomme to Studio`);
+    return res.end();
+  }
+
+  res.write(`
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Myntra Style Navbar</title>
 
 <style>
@@ -100,12 +118,12 @@ const server = http.createServer((req,res)=>{
   <div class="logo">MYNTRA</div>
 
   <nav class="menu">
-    <a href="#">MEN</a>
-    <a href="#">WOMEN</a>
-    <a href="#">KIDS</a>
-    <a href="#">HOME & LIVING</a>
-    <a href="#">BEAUTY</a>
-    <a href="#">STUDIO</a>
+    <a href="/men">MEN</a>
+    <a href="/women">WOMEN</a>
+    <a href="/kids">KIDS</a>
+    <a href="/home&living">HOME & LIVING</a>
+    <a href="/beauty">BEAUTY</a>
+    <a href="/studio">STUDIO</a>
   </nav>
 
   <div class="search-box">
@@ -115,17 +133,15 @@ const server = http.createServer((req,res)=>{
 
 </header>
   
-  <h1>Welcome to Home </h1>
-  
+  <h1>Welcome to Home</h1>
+
 
 </body>
 </html>
-`)
-  res.end()
-})
+`);
+  res.end();
+});
 
-server.listen(3000,()=>{
-  
-  console.log("Server is running")
-}) 
-
+server.listen(3000, () => {
+  console.log("Server is running");
+});

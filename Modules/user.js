@@ -1,8 +1,6 @@
-const http = require("http");
 const fs = require("fs");
-const PORT = 3001;
 
-const server = http.createServer((req, res) => {
+const userRequestHandler = (req, res) => {
   if (req.url === "/") {
     res.write(`
       <!DOCTYPE html>
@@ -141,8 +139,6 @@ const server = http.createServer((req, res) => {
     res.setHeader("Location", "/");
   }
   return res.end();
-});
+};
 
-server.listen(PORT, () => {
-  console.log("server is running");
-});
+module.exports = userRequestHandler;

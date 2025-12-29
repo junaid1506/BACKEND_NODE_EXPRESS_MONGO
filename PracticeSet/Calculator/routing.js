@@ -65,7 +65,7 @@ const routing = (req, res) => {
     return res.end();
   } else if (req.url === "/result") {
     const body = [];
-    req.on("data", (chunk) => {
+    req.on("data", (chunk) => {     
       body.push(chunk);
       console.log(chunk);
     });

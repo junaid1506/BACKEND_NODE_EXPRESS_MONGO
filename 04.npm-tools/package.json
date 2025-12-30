@@ -1,0 +1,12 @@
+{
+  "name": "04.npm-tools",
+  "version": "1.0.0",
+  "description": "This project is being created to learn about npm",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Junaid",
+  "license": "ISC"
+}
+

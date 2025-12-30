@@ -7,6 +7,3 @@ const server = http.createServer(routing);
 server.listen(PORT, () => {
   console.log("Server is running properly");
 });
-
-
-            

@@ -143,7 +143,7 @@ const userRequestHandler = (req, res) => {
   } else {
     res.setHeader("Content-Type", "text/html");
     res.write("<h1> 404 Page Not Found </h1>");
-  }
+  } 
 };
 
 module.exports = userRequestHandler;

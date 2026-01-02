@@ -1,21 +1,19 @@
 // external Modules
 const express = require("express");
+// routes
+const userRouter = require("./routes/userRouter");
+const hostRouter = require("./routes/hostRouter");
+
 const app = express();
 
 app.use((req, res, next) => {
   console.log(req.url, req.method);
   next();
 });
-app.get("/", (req, res, next) => {
-  res.send(`<h1>Welcome to airbnb</h1>
-      <a href='/add-home'>Add Home </a>
-    `);
-});
-app.get("/add-home", (req, res, next) => {
-  res.send(`<h1>Welcome to airbnb</h1>
-      <a href='/add-home'>Add Home </a>
-    `);
-});
+
+app.use(express.urlencoded());
+app.use(userRouter);
+app.use(hostRouter);
 
 const PORT = 3000;
 app.listen(PORT, () => {

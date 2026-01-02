@@ -1,3 +1,5 @@
+// Core module
+const path = require("path");
 // external Modules
 const express = require("express");
 // routes
@@ -11,8 +13,7 @@ app.use(userRouter);
 app.use("/host", hostRouter);
 
 app.use((req, res, next) => {
-  res.status(404).send(`<h1>Page is not found</h1>
-      <a href='/'>Back to Home</a>`);
+  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
 });
 
 const PORT = 3000;

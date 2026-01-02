@@ -5,19 +5,21 @@ const express = require("express");
 
 const app = express();
 
-app.use("/", (req, res, next) => {
+app.get("/", (req, res, next) => {
   console.log("came in first middleware" + req.url, req.method);
   //res.send(`<h1>First Middelware`);
   next();
 });
-app.use("/submit", (req, res, next) => {
+
+app.post("/submit", (req, res, next) => {
   console.log("came in second middleware" + req.url, req.method);
-  res.send(`<h1>Welcome to JND Tech`);
+  res.send(`<h1>Welcome to JND Tech</h1>`);
 });
+
 app.use("/", (req, res, next) => {
   console.log("came in another middleware" + req.url, req.method);
-  res.send(`<h1>another Middelware`);
-  next();
+  res.send(`<h1>another Middelware</h1>`);
+  // next();
 });
 
 const PORT = 3001;

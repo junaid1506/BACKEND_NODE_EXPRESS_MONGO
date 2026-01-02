@@ -12,8 +12,6 @@ const fs = require("fs");
 //   next();
 // });
 
-app.use(express.urlencoded({ extended: true }));
-
 app.get("/", (req, res, next) => {
   console.log(req.url, req.method);
   res.send(`<h1>Welcome to our website</h1>
@@ -40,12 +38,9 @@ app.get("/contact-us", (req, res, next) => {
 });
 
 app.post("/contact-us", (req, res, next) => {
-  console.log(req.body);
-  fs.writeFile("user.txt", JSON.stringify(req.body), () => {
-    console.log(error);
-    console.log("data written succesfully");
-  });
-  // res.send();
+  console.log(req.method, req.url);
+  res.send(`<h1>We will contact you as soon as possible<h1>
+            <a href='/'>Back to home</a>`);
 });
 
 const PORT = 3000;

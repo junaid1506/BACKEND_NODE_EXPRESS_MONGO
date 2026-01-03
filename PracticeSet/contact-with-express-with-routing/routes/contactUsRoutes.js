@@ -4,9 +4,6 @@ const path = require("path");
 const pathDir = require("../utils/pathUtils");
 const userRouter = express.Router();
 
-userRouter.get("/", (req, res, next) => {
-  res.sendFile(path.join(pathDir, "views", "home.html"));
-});
 userRouter.get("/contact-us", (req, res, next) => {
   res.sendFile(path.join(pathDir, "views", "contact.html"));
 });

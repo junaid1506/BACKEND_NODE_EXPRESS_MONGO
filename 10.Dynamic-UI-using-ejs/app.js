@@ -3,11 +3,16 @@ const path = require("path");
 // external Modules
 const express = require("express");
 // routes
+
 const userRouter = require("./routes/userRouter");
 const { hostRouter } = require("./routes/hostRouter");
 const rootDir = require("./utils/pathUtils");
 
 const app = express();
+
+// ejs
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 app.use(express.urlencoded());
 

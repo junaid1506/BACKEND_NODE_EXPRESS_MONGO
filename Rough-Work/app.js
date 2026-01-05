@@ -14,7 +14,6 @@ const app = express();
 
 app.use(express.static(path.join(pathDir, "public")));
 app.use(express.urlencoded());
-
 app.use(homeRoute);
 app.use(loginRoute);
 app.use(registerRoute);

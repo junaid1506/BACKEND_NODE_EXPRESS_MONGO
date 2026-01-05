@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | Backend Practice Platform</title>
+    <link rel="stylesheet" href="output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-gray-50 to-blue-50 text-gray-900 min-h-screen flex flex-col"
+  >
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-lg border-b border-gray-200"
+    >
+      <nav
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md"
+          >
+            <i class="fas fa-server text-white text-lg"></i>
+          </div>
+          <h2
+            class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
+          >
+            BackendPractice
+          </h2>
+        </div>
+
+        <div class="hidden md:flex space-x-8 font-medium">
+          <a
+            href="/"
+            class="text-gray-700 hover:text-blue-600 transition flex items-center space-x-1"
+          >
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+          </a>
+          <a
+            href="/register"
+            class="text-blue-600 font-semibold transition flex items-center space-x-1"
+          >
+            <i class="fas fa-user-plus"></i>
+            <span>Register</span>
+          </a>
+          <a
+            href="/login"
+            class="text-gray-700 hover:text-blue-600 transition flex items-center space-x-1"
+          >
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Login</span>
+          </a>
+          <a
+            href="/contact-us"
+            class="text-gray-700 hover:text-blue-600 transition flex items-center space-x-1"
+          >
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+
+        <button class="md:hidden text-gray-700">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-12 px-4">
+      <div class="max-w-6xl mx-auto">
+        <!-- Hero Section -->
+        <div class="text-center mb-12">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            Start Your
+            <span
+              class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
+            >
+              Backend Journey
+            </span>
+          </h1>
+          <p class="text-gray-600 text-xl max-w-3xl mx-auto">
+            Join thousands of developers mastering backend development through
+            practical, hands-on practice
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12">
+          <!-- Left Side - Registration Form -->
+          <div
+            class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100"
+          >
+            <!-- Form Header -->
+            <div
+              class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 text-center"
+            >
+              <div
+                class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6"
+              >
+                <i class="fas fa-user-plus text-white text-3xl"></i>
+              </div>
+              <h2 class="text-3xl font-bold mb-2">Create Account</h2>
+              <p class="text-blue-100">Fill in your details to get started</p>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="p-8 lg:p-10">
+              <form class="space-y-8" method="post" action="/register">
+                <!-- Name Fields -->
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="space-y-2">
+                    <label
+                      class="font-semibold text-gray-700 flex items-center"
+                    >
+                      <i class="fas fa-user text-blue-500 mr-2"></i>
+                      First Name
+                    </label>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                      >
+                        <i class="fas fa-user text-gray-400"></i>
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="John"
+                        name="name"
+                        class="w-full border-2 border-gray-200 pl-12 pr-4 py-4 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all hover:border-blue-300"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="space-y-2">
+                    <label
+                      class="font-semibold text-gray-700 flex items-center"
+                    >
+                      <i class="fas fa-user text-blue-500 mr-2"></i>
+                      Last Name
+                    </label>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                      >
+                        <i class="fas fa-user text-gray-400"></i>
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Doe"
+                        name="lastName"
+                        class="w-full border-2 border-gray-200 pl-12 pr-4 py-4 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all hover:border-blue-300"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email Field -->
+                <div class="space-y-2">
+                  <label class="font-semibold text-gray-700 flex items-center">
+                    <i class="fas fa-envelope text-blue-500 mr-2"></i>
+                    Email Address
+                  </label>
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-at text-gray-400"></i>
+                    </div>
+                    <input
+                      type="email"
+                      placeholder="you@example.com"
+                      name="email"
+                      class="w-full border-2 border-gray-200 pl-12 pr-4 py-4 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all hover:border-blue-300"
+                    />
+                  </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="space-y-2">
+                  <label class="font-semibold text-gray-700 flex items-center">
+                    <i class="fas fa-key text-blue-500 mr-2"></i>
+                    Password
+                  </label>
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input
+                      type="password"
+                      placeholder="Create a strong password"
+                      name="password"
+                      class="w-full border-2 border-gray-200 pl-12 pr-12 py-4 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all hover:border-blue-300"
+                    />
+                    <button
+                      type="button"
+                      class="absolute inset-y-0 right-0 pr-4 flex items-center"
+                    >
+                      <i
+                        class="fas fa-eye text-gray-400 hover:text-gray-600"
+                      ></i>
+                    </button>
+                  </div>
+                  <div class="mt-2 space-y-2">
+                    <div class="flex items-center space-x-2 text-sm">
+                      <div
+                        class="w-1/4 h-2 bg-gray-200 rounded-full overflow-hidden"
+                      >
+                        <div
+                          class="h-full bg-red-500 w-1/3"
+                          id="password-strength"
+                        ></div>
+                      </div>
+                      <span class="text-gray-600" id="strength-text"
+                        >Weak password</span
+                      >
+                    </div>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                      <li class="flex items-center space-x-2">
+                        <i
+                          class="fas fa-check text-green-500 hidden"
+                          id="length-check"
+                        ></i>
+                        <i
+                          class="fas fa-times text-red-500"
+                          id="length-cross"
+                        ></i>
+                        <span>At least 8 characters</span>
+                      </li>
+                      <li class="flex items-center space-x-2">
+                        <i
+                          class="fas fa-check text-green-500 hidden"
+                          id="uppercase-check"
+                        ></i>
+                        <i
+                          class="fas fa-times text-red-500"
+                          id="uppercase-cross"
+                        ></i>
+                        <span>One uppercase letter</span>
+                      </li>
+                      <li class="flex items-center space-x-2">
+                        <i
+                          class="fas fa-check text-green-500 hidden"
+                          id="number-check"
+                        ></i>
+                        <i
+                          class="fas fa-times text-red-500"
+                          id="number-cross"
+                        ></i>
+                        <span>One number</span>
+                      </li>
+                      <li class="flex items-center space-x-2">
+                        <i
+                          class="fas fa-check text-green-500 hidden"
+                          id="special-check"
+                        ></i>
+                        <i
+                          class="fas fa-times text-red-500"
+                          id="special-cross"
+                        ></i>
+                        <span>One special character</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="space-y-2">
+                  <label class="font-semibold text-gray-700 flex items-center">
+                    <i class="fas fa-redo text-blue-500 mr-2"></i>
+                    Confirm Password
+                  </label>
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                    >
+                      <i class="fas fa-lock text-gray-400"></i>
+                    </div>
+                    <input
+                      type="password"
+                      placeholder="Re-enter your password"
+                      name="confirmPassword"
+                      class="w-full border-2 border-gray-200 pl-12 pr-4 py-4 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all hover:border-blue-300"
+                    />
+                  </div>
+                </div>
+
+                <!-- Terms & Conditions -->
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-1"
+                    />
+                    <div>
+                      <label for="terms" class="text-gray-700">
+                        I agree to the
+                        <a
+                          href="/terms"
+                          class="text-blue-600 hover:text-blue-800 font-semibold"
+                          >Terms of Service</a
+                        >
+                        and
+                        <a
+                          href="/privacy"
+                          class="text-blue-600 hover:text-blue-800 font-semibold"
+                          >Privacy Policy</a
+                        >
+                      </label>
+                      <p class="text-gray-500 text-sm mt-1">
+                        By creating an account, you agree to receive occasional
+                        emails about new features and backend tips.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start space-x-3">
+                    <input
+                      name="isChecked"
+                      type="checkbox"
+                      id="newsletter"
+                      class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-1"
+                      checked
+                    />
+                    <label for="newsletter" class="text-gray-700">
+                      Subscribe to the Backend Practice newsletter
+                      <span class="text-gray-500 text-sm block"
+                        >Get weekly backend development tips and tutorials</span
+                      >
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  type="submit"
+                  class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center space-x-3 group"
+                >
+                  <span>Create Account</span>
+                  <i
+                    class="fas fa-rocket group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                  ></i>
+                </button>
+
+                <!-- Divider -->
+                <div class="relative">
+                  <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-300"></div>
+                  </div>
+                  <div class="relative flex justify-center text-sm">
+                    <span class="px-4 bg-white text-gray-500"
+                      >Or sign up with</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Social Registration -->
+                <div class="grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    class="flex items-center justify-center space-x-3 py-4 rounded-xl border-2 border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all"
+                  >
+                    <i class="fab fa-google text-red-500 text-xl"></i>
+                    <span class="font-medium">Google</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="flex items-center justify-center space-x-3 py-4 rounded-xl border-2 border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all"
+                  >
+                    <i class="fab fa-github text-gray-800 text-xl"></i>
+                    <span class="font-medium">GitHub</span>
+                  </button>
+                </div>
+
+                <!-- Login Link -->
+                <p class="text-center text-gray-600">
+                  Already have an account?
+                  <a
+                    href="/login"
+                    class="text-blue-600 font-semibold hover:text-blue-800 hover:underline ml-2 group"
+                  >
+                    Sign in here
+                    <i
+                      class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"
+                    ></i>
+                  </a>
+                </p>
+              </form>
+            </div>
+          </div>
+
+          <!-- Right Side - Benefits -->
+          <div class="space-y-8">
+            <!-- Benefits Card -->
+            <div
+              class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-100 shadow-lg"
+            >
+              <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-gift text-blue-600 mr-3 text-3xl"></i>
+                Why Join BackendPractice?
+              </h2>
+
+              <div class="space-y-6">
+                <div class="flex items-start space-x-4">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"
+                  >
+                    <i class="fas fa-code text-blue-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold mb-1">Real API Practice</h4>
+                    <p class="text-gray-600 text-sm">
+                      Work with actual REST APIs, databases, and authentication
+                      systems
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center"
+                  >
+                    <i
+                      class="fas fa-project-diagram text-green-600 text-xl"
+                    ></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold mb-1">Project Portfolio</h4>
+                    <p class="text-gray-600 text-sm">
+                      Build projects that showcase your backend skills to
+                      employers
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center"
+                  >
+                    <i class="fas fa-users text-purple-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold mb-1">Community Support</h4>
+                    <p class="text-gray-600 text-sm">
+                      Join thousands of developers learning backend together
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                  <div
+                    class="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center"
+                  >
+                    <i class="fas fa-chart-line text-orange-600 text-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold mb-1">Progress Tracking</h4>
+                    <p class="text-gray-600 text-sm">
+                      Track your learning journey with detailed analytics
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats Card -->
+            <div
+              class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100"
+            >
+              <h3 class="text-xl font-bold mb-6 flex items-center">
+                <i class="fas fa-chart-bar text-indigo-600 mr-3"></i>
+                Join Our Growing Community
+              </h3>
+
+              <div class="grid grid-cols-2 gap-6 mb-8">
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-blue-600 mb-2">
+                    10,000+
+                  </div>
+                  <div class="text-gray-600 text-sm">Active Developers</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-green-600 mb-2">500+</div>
+                  <div class="text-gray-600 text-sm">Projects Built</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-purple-600 mb-2">50+</div>
+                  <div class="text-gray-600 text-sm">API Endpoints</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-3xl font-bold text-orange-600 mb-2">
+                    24/7
+                  </div>
+                  <div class="text-gray-600 text-sm">Support Available</div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                <div class="flex items-center">
+                  <div
+                    class="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"
+                  ></div>
+                  <span class="font-semibold">New members joining daily</span>
+                </div>
+                <p class="text-gray-600 text-sm mt-2">
+                  Be part of the fastest-growing backend learning community
+                </p>
+              </div>
+            </div>
+
+            <!-- Free Trial Card -->
+            <div
+              class="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-3xl p-8 shadow-xl"
+            >
+              <div class="flex items-center mb-6">
+                <div
+                  class="w-14 h-14 bg-gradient-to-r from-emerald-500 to-green-500 rounded-2xl flex items-center justify-center mr-4"
+                >
+                  <i class="fas fa-crown text-white text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold">100% Free Forever</h3>
+                  <p class="text-gray-300 text-sm">No credit card required</p>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                  <i class="fas fa-check-circle text-emerald-400"></i>
+                  <span>Unlimited API practice</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <i class="fas fa-check-circle text-emerald-400"></i>
+                  <span>All learning paths included</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <i class="fas fa-check-circle text-emerald-400"></i>
+                  <span>Community access</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <i class="fas fa-check-circle text-emerald-400"></i>
+                  <span>Regular updates</span>
+                </div>
+              </div>
+
+              <div class="mt-8 pt-6 border-t border-gray-700">
+                <p class="text-gray-400 text-sm">
+                  <i class="fas fa-star text-yellow-400 mr-2"></i>
+                  Trusted by developers at Google, Microsoft, and Amazon
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-server text-white text-sm"></i>
+              </div>
+              <span class="text-white font-semibold">BackendPractice</span>
+            </div>
+            <p class="text-gray-400 text-sm mt-2">
+              Start your backend development journey today
+            </p>
+          </div>
+
+          <div class="text-center md:text-right">
+            <p class="text-gray-400">© 2026 BackendPractice Platform</p>
+            <div class="flex space-x-6 mt-2">
+              <a href="/privacy" class="text-gray-400 hover:text-white text-sm"
+                >Privacy</a
+              >
+              <a href="/terms" class="text-gray-400 hover:text-white text-sm"
+                >Terms</a
+              >
+              <a href="/cookies" class="text-gray-400 hover:text-white text-sm"
+                >Cookies</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript for password strength and toggle -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const passwordInput = document.querySelector('input[type="password"]');
+        const toggleButton = document.querySelector(".fa-eye").parentElement;
+        const strengthBar = document.getElementById("password-strength");
+        const strengthText = document.getElementById("strength-text");
+        const checks = {
+          length: document.getElementById("length-check"),
+          uppercase: document.getElementById("uppercase-check"),
+          number: document.getElementById("number-check"),
+          special: document.getElementById("special-check"),
+        };
+        const crosses = {
+          length: document.getElementById("length-cross"),
+          uppercase: document.getElementById("uppercase-cross"),
+          number: document.getElementById("number-cross"),
+          special: document
+            .getElementById("special-check")
+            .parentElement.querySelector(".fa-times"),
+        };
+
+        // Password toggle
+        toggleButton.addEventListener("click", function () {
+          const icon = this.querySelector("i");
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+          } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+          }
+        });
+
+        // Password strength checker
+        passwordInput.addEventListener("input", function () {
+          const password = this.value;
+          let strength = 0;
+          let width = 0;
+          let text = "";
+          let color = "";
+
+          // Check criteria
+          const hasLength = password.length >= 8;
+          const hasUppercase = /[A-Z]/.test(password);
+          const hasNumber = /[0-9]/.test(password);
+          const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+          // Update icons
+          updateCheck(checks.length, crosses.length, hasLength);
+          updateCheck(checks.uppercase, crosses.uppercase, hasUppercase);
+          updateCheck(checks.number, crosses.number, hasNumber);
+          updateCheck(checks.special, crosses.special, hasSpecial);
+
+          // Calculate strength
+          strength = hasLength + hasUppercase + hasNumber + hasSpecial;
+
+          // Update bar and text
+          switch (strength) {
+            case 0:
+              width = 25;
+              text = "Very Weak";
+              color = "bg-red-500";
+              break;
+            case 1:
+              width = 33;
+              text = "Weak";
+              color = "bg-orange-500";
+              break;
+            case 2:
+              width = 50;
+              text = "Fair";
+              color = "bg-yellow-500";
+              break;
+            case 3:
+              width = 75;
+              text = "Good";
+              color = "bg-green-500";
+              break;
+            case 4:
+              width = 100;
+              text = "Strong";
+              color = "bg-emerald-500";
+              break;
+          }
+
+          strengthBar.className = `h-full ${color} w-${width}`;
+          strengthBar.style.width = `${width}%`;
+          strengthText.textContent = text;
+        });
+
+        function updateCheck(checkEl, crossEl, isValid) {
+          if (isValid) {
+            checkEl.classList.remove("hidden");
+            crossEl.classList.add("hidden");
+          } else {
+            checkEl.classList.add("hidden");
+            crossEl.classList.remove("hidden");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

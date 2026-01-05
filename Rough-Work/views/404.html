@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Page Not Found | Backend Practice</title>
+    <link rel="stylesheet" href="output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body
+    class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-900 min-h-screen flex flex-col"
+  >
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-lg border-b border-gray-200"
+    >
+      <nav
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md"
+          >
+            <i class="fas fa-server text-white text-lg"></i>
+          </div>
+          <h2
+            class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
+          >
+            BackendPractice
+          </h2>
+        </div>
+
+        <div class="hidden md:flex space-x-8 font-medium">
+          <a
+            href="/"
+            class="text-gray-700 hover:text-blue-600 transition flex items-center space-x-1"
+          >
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+          </a>
+          <a
+            href="/register"
+            class="text-gray-700 hover:text-blue-600 transition flex items-center space-x-1"
+          >
+            <i class="fas fa-user-plus"></i>
+            <span>Register</span>
+          </a>
+          <a
+            href="/login"
+            class="text-gray-700 hover:text-blue-600 transition flex items-center space-x-1"
+          >
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Login</span>
+          </a>
+          <a
+            href="/contact-us"
+            class="text-gray-700 hover:text-blue-600 transition flex items-center space-x-1"
+          >
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+
+        <button class="md:hidden text-gray-700">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center py-12 px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Animated 404 -->
+        <div class="relative mb-8">
+          <div
+            class="text-9xl md:text-[12rem] font-black text-gray-200 tracking-wider"
+          >
+            404
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div
+              class="text-9xl md:text-[12rem] font-black bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent animate-pulse"
+            >
+              404
+            </div>
+          </div>
+
+          <!-- Floating elements -->
+          <div
+            class="absolute -top-4 -left-4 w-20 h-20 bg-blue-100 rounded-full opacity-50 animate-bounce"
+          ></div>
+          <div
+            class="absolute -bottom-4 -right-4 w-16 h-16 bg-purple-100 rounded-full opacity-50 animate-bounce animation-delay-1000"
+          ></div>
+          <div
+            class="absolute top-1/2 -right-8 w-12 h-12 bg-red-100 rounded-full opacity-50 animate-bounce animation-delay-500"
+          ></div>
+        </div>
+
+        <!-- Illustration -->
+        <div class="mb-12">
+          <div
+            class="inline-block p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-2xl border border-gray-200"
+          >
+            <div class="relative">
+              <div class="w-48 h-48 mx-auto">
+                <!-- Broken chain SVG -->
+                <svg
+                  viewBox="0 0 200 200"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-full h-full"
+                >
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="80"
+                    fill="#f3f4f6"
+                    stroke="#d1d5db"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M60,80 L80,60 L120,100 L140,80"
+                    stroke="#ef4444"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M140,120 L120,140 L80,100 L60,120"
+                    stroke="#ef4444"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  />
+                  <circle cx="90" cy="90" r="8" fill="#3b82f6" />
+                  <circle cx="110" cy="110" r="8" fill="#3b82f6" />
+                  <circle cx="90" cy="90" r="4" fill="white" />
+                  <circle cx="110" cy="110" r="4" fill="white" />
+                </svg>
+              </div>
+              <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+              >
+                <i class="fas fa-unlink text-red-500 text-6xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="mb-10">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            Oops! Page
+            <span
+              class="bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent"
+            >
+              Not Found
+            </span>
+          </h1>
+
+          <p
+            class="text-gray-600 text-xl max-w-2xl mx-auto mb-8 leading-relaxed"
+          >
+            The page you're looking for seems to have wandered off into the
+            digital void. It might have been moved, deleted, or perhaps never
+            existed in our server's memory.
+          </p>
+
+          <div
+            class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-red-50 to-orange-50 rounded-full border border-red-100"
+          >
+            <i class="fas fa-exclamation-circle text-red-500 mr-3"></i>
+            <code class="text-gray-800 font-mono bg-white/50 px-3 py-1 rounded">
+              HTTP 404 - Resource Not Found
+            </code>
+          </div>
+        </div>
+
+        <!-- Possible Causes -->
+        <div
+          class="bg-white/80 backdrop-blur-sm rounded-2xl p-8 mb-12 border border-gray-200 shadow-lg max-w-2xl mx-auto"
+        >
+          <h3 class="text-2xl font-bold mb-6 flex items-center justify-center">
+            <i class="fas fa-search mr-3 text-blue-600"></i>
+            What might have happened?
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-6 text-left">
+            <div class="flex items-start space-x-4">
+              <div
+                class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center"
+              >
+                <i class="fas fa-keyboard text-blue-600 text-xl"></i>
+              </div>
+              <div>
+                <h4 class="font-bold mb-2">Typo in the URL</h4>
+                <p class="text-gray-600 text-sm">
+                  Check for spelling mistakes in the address bar.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div
+                class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center"
+              >
+                <i class="fas fa-map-signs text-purple-600 text-xl"></i>
+              </div>
+              <div>
+                <h4 class="font-bold mb-2">Page Moved</h4>
+                <p class="text-gray-600 text-sm">
+                  The content might have been relocated.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div
+                class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center"
+              >
+                <i class="fas fa-trash-alt text-red-600 text-xl"></i>
+              </div>
+              <div>
+                <h4 class="font-bold mb-2">Page Removed</h4>
+                <p class="text-gray-600 text-sm">
+                  The page could have been deleted.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div
+                class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center"
+              >
+                <i class="fas fa-link text-green-600 text-xl"></i>
+              </div>
+              <div>
+                <h4 class="font-bold mb-2">Broken Link</h4>
+                <p class="text-gray-600 text-sm">
+                  You might have clicked a broken link.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+          <a
+            href="/"
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-3 group"
+          >
+            <i class="fas fa-home"></i>
+            <span>Go Back Home</span>
+            <i
+              class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"
+            ></i>
+          </a>
+
+          <a
+            href="/contact-us"
+            class="bg-white text-gray-800 px-8 py-4 rounded-xl font-bold text-lg border-2 border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 shadow hover:shadow-lg flex items-center justify-center space-x-3"
+          >
+            <i class="fas fa-life-ring"></i>
+            <span>Report Issue</span>
+          </a>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="max-w-xl mx-auto mb-16">
+          <h4 class="text-lg font-semibold mb-4 text-gray-700">
+            Or search for what you need:
+          </h4>
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Search for pages, tutorials, or documentation..."
+              class="w-full px-6 py-4 pr-12 rounded-xl border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all shadow-sm"
+            />
+            <button
+              class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-blue-600"
+            >
+              <i class="fas fa-search text-xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- API Humor -->
+        <div
+          class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-8 text-white max-w-2xl mx-auto"
+        >
+          <div class="flex items-center justify-center mb-6">
+            <i class="fas fa-code text-blue-400 text-3xl mr-4"></i>
+            <h3 class="text-2xl font-bold">Developer's Corner</h3>
+          </div>
+
+          <div class="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+              <code class="text-green-400 font-mono"
+                >console.error('Route not found:', req.path);</code
+              >
+              <span
+                class="px-3 py-1 bg-red-900/50 text-red-300 rounded-full text-sm"
+                >404 Error</span
+              >
+            </div>
+            <p class="text-gray-300 text-center italic">
+              "Even servers get lost sometimes. This one just couldn't find the
+              route you requested."
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-server text-white text-sm"></i>
+              </div>
+              <span class="text-white font-semibold">BackendPractice</span>
+            </div>
+            <p class="text-gray-400 text-sm mt-2">
+              The ultimate platform for backend development practice
+            </p>
+          </div>
+
+          <div class="text-center md:text-right">
+            <p class="text-gray-400">© 2026 BackendPractice Platform</p>
+            <p class="text-gray-500 text-sm mt-1">
+              <i class="fas fa-heart text-red-500 mr-1"></i>
+              Made for developers, by developers
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Animation styles -->
+    <style>
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
+      .animation-delay-500 {
+        animation-delay: 500ms;
+      }
+      .animation-delay-1000 {
+        animation-delay: 1000ms;
+      }
+    </style>
+  </body>
+</html>

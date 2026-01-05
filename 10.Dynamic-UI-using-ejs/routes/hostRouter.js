@@ -8,9 +8,18 @@ const rootDir = require("../utils/pathUtils");
 hostRouter.get("/add-home", (req, res, next) => {
   res.sendFile(path.join(__dirname, "../", "views", "addHome.html"));
 });
+
+const registerHomes = [];
 hostRouter.post("/add-home", (req, res, next) => {
-  console.log(req.body);
+  registerHomes.push({
+    houseName: req.body.houseName,
+    localion: req.body.location,
+    price: req.body.price,
+  });
+  // console.log(registerHomes);
+
   res.sendFile(path.join(rootDir, "views", "successMsg.html"));
 });
 
-module.exports = hostRouter;
+exports.hostRouter = hostRouter;
+exports.registerHomes = registerHomes;

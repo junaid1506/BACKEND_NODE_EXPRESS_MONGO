@@ -4,7 +4,6 @@ const path = require("path");
 const express = require("express");
 // routes
 //controllers
-
 const { get404 } = require("./controller/error");
 
 const userRouter = require("./routes/userRouter");

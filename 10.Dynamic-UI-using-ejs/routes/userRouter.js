@@ -10,7 +10,10 @@ const { registerHomes } = require("./hostRouter");
 
 userRouter.get("/", (req, res, next) => {
   console.log(registerHomes);
-  res.render("home", { registerHomes });
+  res.render("home", {
+    registerHomes: registerHomes,
+    pageTitle: "airbnb Home",
+  });
 });
 
 module.exports = userRouter;

@@ -1,4 +1,3 @@
-const registerHomes = [];
 
 exports.getAddHome = (req, res, next) => {
   res.render("addHome", { pageTitle: "Register Your Home" });

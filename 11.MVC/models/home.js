@@ -24,13 +24,12 @@ module.exports = class Home {
 
   static fetchAll(callback) {
     const filePath = path.join(rootDir, "data", "home.json");
-    fs.readFile(filePath, (err, data) => {
-      console.log("File read", err, data);
 
-      if (!err) {
-        callback(JSON.parse([data]));
-      } else {
+    fs.readFile(filePath, "utf8", (err, data) => {
+      if (err || !data) {
         callback([]);
+      } else {
+        callback(JSON.parse(data));
       }
     });
   }

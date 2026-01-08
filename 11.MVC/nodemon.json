@@ -1,6 +1,6 @@
 {
   "watch": ["."],
   "ext": "js.json,ejs",
-  "igone": ["node_modules/", "data"],
+  "igone": ["data"],
   "exec": "node app.js"
 }

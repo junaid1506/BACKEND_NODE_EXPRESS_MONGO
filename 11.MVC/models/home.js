@@ -3,8 +3,6 @@ const fs = require("fs");
 const path = require("path");
 
 const rootDir = require("../utils/pathUtils");
-// fake databse
-const registerHomes = [];
 
 module.exports = class Home {
   constructor(houseName, localion, price) {
@@ -14,19 +12,26 @@ module.exports = class Home {
   }
 
   save() {
-    registerHomes.push(this);
-    const filePath = path.join(rootDir, "data", "home.json");
-    fs.writeFile(filePath, JSON.stringify(...registerHomes), (err) => {
-      console.log("File Write Successfull");
-      console.log(`Error is ${err}`);
+    Home.fetchAll((registerHomes) => {
+      registerHomes.push(this);
+      const filePath = path.join(rootDir, "data", "home.json");
+      fs.writeFile(filePath, JSON.stringify(registerHomes), (err) => {
+        console.log("File Write Successfull");
+        console.log(`Error is ${err}`);
+      });
     });
   }
 
-  static fetchAll() {
+  static fetchAll(callback) {
     const filePath = path.join(rootDir, "data", "home.json");
     fs.readFile(filePath, (err, data) => {
       console.log("File read", err, data);
+
+      if (!err) {
+        callback(JSON.parse([data]));
+      } else {
+        callback([]);
+      }
     });
-    return registerHomes;
   }
 };

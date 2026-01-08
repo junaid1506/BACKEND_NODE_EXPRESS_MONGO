@@ -6,7 +6,7 @@ const express = require("express");
 //controllers
 const { get404 } = require("./controller/error");
 
-const userRouter = require("./routes/userRouter");
+const storeRoutes = require("./routes/storeRouter");
 const { hostRouter } = require("./routes/hostRouter");
 const rootDir = require("./utils/pathUtils");
 
@@ -20,7 +20,7 @@ app.use(express.urlencoded());
 
 app.use(express.static(path.join(rootDir, "public")));
 
-app.use(userRouter);
+app.use(storeRoutes);
 app.use(hostRouter);
 
 // app.use(express.static(path.join(rootDir, "public")));

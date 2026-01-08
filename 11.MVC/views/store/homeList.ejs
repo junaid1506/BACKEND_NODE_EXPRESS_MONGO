@@ -1,242 +1,68 @@
 <%- include('../Partials/header') %>
-</head>
-<body class="bg-gray-50">
-  <!-- Header -->
-  <%- include('../Partials/nav') %>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+<%- include('../Partials/nav') %>
+    <!-- Hero Section -->
+    <section class="bg-rose-500 text-white py-32 relative">
+      <div class="max-w-5xl mx-auto text-center px-6">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Explore the world's best homes
+        </h2>
+        <p class="text-lg md:text-xl mb-8">
+          Book unique homes and experiences all around the world.
+        </p>
+        <a
+          href="/add-home"
+          class="inline-block px-8 py-4 bg-white text-rose-500 font-semibold rounded-full hover:bg-gray-100 transition"
+        >
+          Add Your Home
+        </a>
+      </div>
+    </section>
 
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-rose-500 to-pink-500 text-white py-24 md:py-32">
-    <div class="max-w-6xl mx-auto px-4 text-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-        Find your perfect getaway
-      </h1>
-      <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto opacity-90">
-        Discover amazing homes and experiences around the world
+    <!-- Featured Listings -->
+    <section class="max-w-7xl mx-auto px-6 py-16">
+      <h3 class="text-2xl font-bold mb-8">Registered Homes</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <% registerHomes.forEach(home => { %>
+
+        <div
+          class="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden"
+        >
+          <div class="p-4">
+            <h4 class="text-lg font-semibold mb-2"><%= home.houseName %></h4>
+            <p class="text-gray-600 mb-2"><%= home.localion %></p>
+            <p class="font-bold text-gray-800">$<%= home.price %> / night</p>
+          </div>
+        </div>
+
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="bg-gray-200 py-16 text-center">
+      <h3 class="text-3xl font-bold mb-6">Become a Host</h3>
+      <p class="mb-8 text-gray-700">
+        Earn money by sharing your extra space with travelers.
       </p>
-      <a href="/add-home" 
-         class="inline-flex items-center px-8 py-4 bg-white text-rose-500 font-semibold rounded-full hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-        </svg>
-        List Your Home
+      <a
+        href="/add-home"
+        class="inline-block px-8 py-4 bg-rose-500 text-white font-semibold rounded-full hover:bg-rose-600 transition"
+      >
+        Start Hosting
       </a>
-    </div>
-  </section>
+    </section>
 
-  <!-- Featured Listings -->
-  <section class="max-w-7xl mx-auto px-4 py-16">
-    <div class="flex justify-between items-center mb-10">
-      <div>
-        <h2 class="text-3xl font-bold text-gray-900">Featured Homes</h2>
-        <p class="text-gray-600 mt-2">Handpicked homes for your next adventure</p>
+    <!-- Footer -->
+    <footer class="bg-white shadow mt-16">
+      <div
+        class="max-w-7xl mx-auto px-6 py-6 text-center text-gray-600 text-sm"
+      >
+        &copy; 2026 Airbnb Clone. All rights reserved.
       </div>
-      <a href="/booking" class="text-rose-500 font-semibold hover:underline">
-        View all →
-      </a>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <% registerHomes.forEach(home => { 
-        // Generate random rating (4.0 - 5.0) for demo
-        const rating = (Math.random() * 1 + 4).toFixed(1);
-        const reviewCount = Math.floor(Math.random() * 200) + 50;
-      %>
-      <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-        <!-- Image Section -->
-        <div class="relative h-64 overflow-hidden">
-          <img src="<%= home.imageUrl || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' %>" 
-               alt="<%= home.houseName %>"
-               class="w-full h-full object-cover">
-          <button class="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition">
-            <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Details Section -->
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-3">
-            <h3 class="text-xl font-bold text-gray-900 truncate"><%= home.houseName %></h3>
-            <div class="flex flex-col items-end">
-              <!-- Rating Stars -->
-              <div class="flex items-center mb-1">
-                <% for(let i = 1; i <= 5; i++) { %>
-                  <% if(i <= Math.floor(rating)) { %>
-                    <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                    </svg>
-                  <% } else if(i === Math.ceil(rating) && rating % 1 !== 0) { %>
-                    <div class="relative">
-                      <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                      </svg>
-                      <div class="absolute top-0 left-0 overflow-hidden" style="width: <%= (rating % 1) * 100 %>%">
-                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                        </svg>
-                      </div>
-                    </div>
-                  <% } else { %>
-                    <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                    </svg>
-                  <% } %>
-                <% } %>
-                <span class="ml-1 text-sm font-semibold text-gray-900"><%= rating %></span>
-              </div>
-              <span class="text-xs text-gray-500">(<%= reviewCount %> reviews)</span>
-            </div>
-          </div>
-
-          <p class="text-gray-600 mb-3 flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-            <%= home.localion %>
-          </p>
-
-          <div class="flex justify-between items-center mb-4">
-            <div>
-              <p class="text-2xl font-bold text-gray-900">$<%= home.price %><span class="text-sm font-normal text-gray-600"> / night</span></p>
-            </div>
-            <div class="text-sm text-gray-600">
-              <%= Math.floor(Math.random() * 5) + 1 %> guests • <%= Math.floor(Math.random() * 3) + 1 %> bedrooms • <%= Math.floor(Math.random() * 3) + 1 %> beds
-            </div>
-          </div>
-
-          <!-- Buttons Section -->
-          <div class="flex space-x-3">
-            <a href="/booking/<%= home.id %>" 
-               class="flex-1 bg-rose-500 text-white font-semibold py-3 rounded-lg hover:bg-rose-600 transition text-center">
-              Book Now
-            </a>
-            <button class="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-              <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-      <% }) %>
-    </div>
-
-    <!-- No Homes Message -->
-    <% if(registerHomes.length === 0) { %>
-    <div class="text-center py-16">
-      <svg class="w-24 h-24 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-      </svg>
-      <h3 class="text-2xl font-bold text-gray-700 mb-3">No homes listed yet</h3>
-      <p class="text-gray-600 mb-8">Be the first to list your amazing home!</p>
-      <a href="/add-home" class="inline-flex items-center px-6 py-3 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-        </svg>
-        Add Your First Home
-      </a>
-    </div>
-    <% } %>
-  </section>
-
-  <!-- Stats Section -->
-  <section class="bg-gradient-to-r from-rose-50 to-pink-50 py-16">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Why Choose Us</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-8 h-8 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Secure Booking</h3>
-          <p class="text-gray-600">Your payment and personal data are always protected</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-8 h-8 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Verified Homes</h3>
-          <p class="text-gray-600">Every listing is checked for quality and accuracy</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <svg class="w-8 h-8 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">24/7 Support</h3>
-          <p class="text-gray-600">Get help anytime from our dedicated support team</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Call to Action -->
-  <section class="max-w-6xl mx-auto px-4 py-16 text-center">
-    <h2 class="text-3xl font-bold text-gray-900 mb-6">Ready to Host?</h2>
-    <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-      Join thousands of hosts earning extra income by sharing their space with travelers from around the world.
-    </p>
-    <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <a href="/add-home" 
-         class="px-8 py-4 bg-rose-500 text-white font-semibold rounded-full hover:bg-rose-600 transition shadow-lg hover:shadow-xl">
-        Start Hosting Today
-      </a>
-      <a href="/booking" 
-         class="px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-full hover:border-rose-300 hover:bg-rose-50 transition">
-        Explore Homes
-      </a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
-          <div class="flex items-center mb-6">
-            <svg class="w-8 h-8 text-rose-400" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M22 9.75V7.982c0-1.556-1.348-2.771-2.93-2.562A5.254 5.254 0 0012 10.25v1.5H6V7.982c0-1.556 1.348-2.771 2.93-2.562A5.254 5.254 0 0012 10.25v1.5H2.25A2.25 2.25 0 000 14v8.25h24V14a2.25 2.25 0 00-2-2.236V9.75z"/>
-            </svg>
-            <span class="ml-2 text-xl font-bold">airbnb</span>
-          </div>
-          <p class="text-gray-400 text-sm">Find amazing places to stay and unique experiences around the world.</p>
-        </div>
-        <div>
-          <h4 class="font-bold mb-4">Discover</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="/booking" class="hover:text-white transition">Bookings</a></li>
-            <li><a href="/favorites" class="hover:text-white transition">Favorites</a></li>
-            <li><a href="/reservations" class="hover:text-white transition">Reservations</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold mb-4">Host</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="/add-home" class="hover:text-white transition">Add Home</a></li>
-            <li><a href="#" class="hover:text-white transition">Hosting Resources</a></li>
-            <li><a href="#" class="hover:text-white transition">Community</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold mb-4">Support</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="#" class="hover:text-white transition">Help Center</a></li>
-            <li><a href="#" class="hover:text-white transition">Safety Information</a></li>
-            <li><a href="#" class="hover:text-white transition">Cancellation Options</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-        &copy; <%= new Date().getFullYear() %> Airbnb Clone. All rights reserved.
-      </div>
-    </div>
-  </footer>
-</body>
+    </footer>
+  </body>
 </html>
+ 

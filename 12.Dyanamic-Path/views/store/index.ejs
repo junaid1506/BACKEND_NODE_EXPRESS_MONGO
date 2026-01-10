@@ -1,132 +1,123 @@
 <%- include('../Partials/header') %>
-</head>
+  </head>
 
-<body class="bg-gray-100 text-gray-900">
+  <body class="bg-gray-100 text-gray-900">
 
-  <%- include('../Partials/nav') %>
+    <%- include('../Partials/nav') %>
 
-  <!-- Hero -->
-  <section class="bg-gradient-to-r from-rose-500 to-pink-500 text-white py-32">
-    <div class="max-w-6xl mx-auto text-center px-6">
-      <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
-        Explore Best Homes
-      </h1>
-      <p class="text-lg md:text-xl mb-10 opacity-90">
-        Book unique stays at the best price.
-      </p>
-      <a
-        href="/add-home"
-        class="inline-block px-12 py-4 bg-white text-rose-500 font-semibold rounded-full shadow hover:scale-105 transition"
-      >
-        Add Your Home
-      </a>
-    </div>
-  </section>
+      <!-- Hero -->
+      <section class="bg-gradient-to-r from-rose-500 to-pink-500 text-white py-32">
+        <div class="max-w-6xl mx-auto text-center px-6">
+          <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
+            Explore Best Homes
+          </h1>
+          <p class="text-lg md:text-xl mb-10 opacity-90">
+            Book unique stays at the best price.
+          </p>
+          <a href="/add-home"
+            class="inline-block px-12 py-4 bg-white text-rose-500 font-semibold rounded-full shadow hover:scale-105 transition">
+            Add Your Home
+          </a>
+        </div>
+      </section>
 
-  <!-- Homes -->
-  <section class="max-w-7xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold mb-12 text-center">
-      Registered Homes
-    </h2>
+      <!-- Homes -->
+      <section class="max-w-7xl mx-auto px-6 py-20">
+        <h2 class="text-3xl font-bold mb-12 text-center">
+          Registered Homes
+        </h2>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-      <% registerHomes.forEach((home, index) => { %>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          <% registerHomes.forEach((home, index)=> { %>
 
-      <div class="bg-white rounded-3xl shadow hover:shadow-2xl transition overflow-hidden">
+            <div class="bg-white rounded-3xl shadow hover:shadow-2xl transition overflow-hidden">
 
-        <!-- Image -->
-        <div class="relative h-56">
-          <img
-            src="<%= home.photoUrl && home.photoUrl.trim() !== '' 
+              <!-- Image -->
+              <div class="relative h-56">
+                <img src="<%= home.photoUrl && home.photoUrl.trim() !== '' 
               ? home.photoUrl 
               : 'https://images.unsplash.com/photo-1566073771259-6a8506099945' %>"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945';"
-            alt="hotel image"
-            class="w-full h-full object-cover"
-          />
+                  onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945';"
+                  alt="hotel image" class="w-full h-full object-cover" />
 
-          <!-- Rating -->
-          <span
-            class="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold shadow"
-          >
-            ⭐ <%= home.rating || '4.5' %>
-          </span>
+                <!-- Rating -->
+                <span class="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold shadow">
+                  ⭐ <%= home.rating || '4.5' %>
+                </span>
 
-          <!-- Favorite Button -->
-          <button
-            onclick="toggleFav(this)"
-            class="absolute top-4 right-4 bg-white rounded-full p-2 shadow text-xl transition hover:scale-110"
-            title="Add to favorites"
-          >
-            🤍
-          </button>
+                <!-- Favorite Button -->
+                <button onclick="toggleFav(this)"
+                  class="absolute top-4 right-4 bg-white rounded-full p-2 shadow text-xl transition hover:scale-110"
+                  title="Add to favorites">
+                  🤍
+                </button>
+              </div>
+
+              <!-- Content -->
+              <div class="p-6">
+                <h3 class="text-xl font-semibold mb-1">
+                  <%= home.houseName %>
+                </h3>
+
+                <p class="text-gray-500 mb-4">
+                  📍 <%= home.localion %>
+                </p>
+
+                <p class="text-lg font-bold mb-6">
+                  $<%= home.price %>
+                    <span class="text-sm text-gray-500 font-normal">/ night</span>
+                </p>
+
+                <!-- Buttons -->
+                <div class="flex gap-3">
+                  <!-- Book Now -->
+                  <a href="/book/<%= index %>"
+                    class="flex-1 text-center bg-rose-500 text-white py-2 rounded-xl font-semibold hover:bg-rose-600 transition">
+                    Book Now
+                  </a>
+
+                  <!-- Save -->
+                  <a href="/homes/<%= home.id %>" class="flex-1 inline-flex items-center justify-center
+         border border-gray-300 py-2 rounded-xl
+         font-semibold cursor-pointer text-center
+         hover:bg-gray-100 transition">
+                    View Details
+                  </a>
+
+                </div>
+              </div>
+            </div>
+
+            <% }) %>
         </div>
+      </section>
 
-        <!-- Content -->
-        <div class="p-6">
-          <h3 class="text-xl font-semibold mb-1">
-            <%= home.houseName %>
-          </h3>
-
-          <p class="text-gray-500 mb-4">
-            📍 <%= home.localion %>
-          </p>
-
-          <p class="text-lg font-bold mb-6">
-            $<%= home.price %>
-            <span class="text-sm text-gray-500 font-normal">/ night</span>
-          </p>
-
-          <!-- Buttons -->
-          <div class="flex gap-3">
-            <!-- Book Now -->
-            <a
-              href="/book/<%= index %>"
-              class="flex-1 text-center bg-rose-500 text-white py-2 rounded-xl font-semibold hover:bg-rose-600 transition"
-            >
-              Book Now
-            </a>
-
-            <!-- Save -->
-            <button
-              onclick="saveHome(this)"
-              class="flex-1 border border-gray-300 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
-            >
-              Favorite
-            </button>
-          </div>
+      <!-- Footer -->
+      <footer class="bg-white border-t">
+        <div class="max-w-7xl mx-auto px-6 py-6 text-center text-gray-500 text-sm">
+          © 2026 Airbnb Clone • Built with Tailwind
         </div>
-      </div>
+      </footer>
 
-      <% }) %>
-    </div>
-  </section>
+      <!-- JS -->
+      <script>
+        function toggleFav(btn) {
+          if (btn.innerText === "🤍") {
+            btn.innerText = "❤️";
+            btn.classList.add("text-rose-500");
+          } else {
+            btn.innerText = "🤍";
+            btn.classList.remove("text-rose-500");
+          }
+        }
 
-  <!-- Footer -->
-  <footer class="bg-white border-t">
-    <div class="max-w-7xl mx-auto px-6 py-6 text-center text-gray-500 text-sm">
-      © 2026 Airbnb Clone • Built with Tailwind
-    </div>
-  </footer>
+        function saveHome(btn) {
+          btn.innerText = "Saved ✔";
+          btn.classList.add("bg-green-500", "text-white");
+          btn.classList.remove("border", "border-gray-300");
+        }
+      </script>
 
-  <!-- JS -->
-  <script>
-    function toggleFav(btn) {
-      if (btn.innerText === "🤍") {
-        btn.innerText = "❤️";
-        btn.classList.add("text-rose-500");
-      } else {
-        btn.innerText = "🤍";
-        btn.classList.remove("text-rose-500");
-      }
-    }
+  </body>
 
-    function saveHome(btn) {
-      btn.innerText = "Saved ✔";
-      btn.classList.add("bg-green-500", "text-white");
-      btn.classList.remove("border", "border-gray-300");
-    }
-  </script>
-
-</body>
-</html>
+  </html>

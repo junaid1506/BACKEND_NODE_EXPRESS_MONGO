@@ -30,3 +30,18 @@ exports.getBooking = (req, res, next) => {
     pageTitle: "My Bookings",
   });
 };
+
+exports.getHomeDetails = (req, res, next) => {
+  const homeId = req.params.id;
+  Home.findById(homeId, (home) => {
+    if (!home) {
+      res.redirect("/");
+      console.log("Home not found");
+    } else {
+      res.render("store/homeDetail", {
+        pageTitle: "Home Details",
+        home: home,
+      });
+    }
+  });
+};  

@@ -21,9 +21,6 @@ exports.getFavroute = (req, res, next) => {
   // let allHome;
   Home.fetchAll((allHome) => {
     Favourites.fetchAll((favHomes) => {
-      if (allHome.includes(favHomes)) {
-        console.log("Home already added in fav");
-      }
       const registerHomes = allHome.filter((home) =>
         favHomes.includes(home.id)
       );
@@ -44,6 +41,13 @@ exports.postFavourites = (req, res, next) => {
   const fav = new Favourites(req.body.id);
   fav.save();
   res.redirect("/favroute");
+};
+
+exports.postRemoveFavourites = (req, res, next) => {
+  const homeID = req.body.id;
+  Favourites.removeById(homeID, () => {
+    res.redirect("/favroute");
+  });
 };
 
 exports.getHomeDetails = (req, res, next) => {

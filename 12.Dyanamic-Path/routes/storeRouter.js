@@ -11,6 +11,7 @@ const {
   getFavroute,
   getHomeDetails,
   postFavourites,
+  postRemoveFavourites,
 } = require("../controller/storeController");
 
 const rootDir = require("../utils/pathUtils");
@@ -21,5 +22,6 @@ userRouter.get("/booking", getBooking);
 userRouter.get("/favroute", getFavroute);
 userRouter.get("/homes/:id", getHomeDetails);
 userRouter.post("/favourites", postFavourites);
+userRouter.post("/remove-fav", postRemoveFavourites);
 
 module.exports = userRouter;

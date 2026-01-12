@@ -45,12 +45,7 @@
                   ⭐ <%= home.rating || '4.5' %>
                 </span>
 
-                <!-- Favorite Button -->
-                <button onclick="toggleFav(this)"
-                  class="absolute top-4 right-4 bg-white rounded-full p-2 shadow text-xl transition hover:scale-110"
-                  title="Add to favorites">
-                  🤍
-                </button>
+                
               </div>
 
               <!-- Content -->
@@ -69,22 +64,37 @@
                 </p>
 
                 <!-- Buttons -->
-                <div class="flex gap-3">
-                  <!-- Book Now -->
-                  <a href="/book/<%= index %>"
-                    class="flex-1 text-center bg-rose-500 text-white py-2 rounded-xl font-semibold hover:bg-rose-600 transition">
-                    Book Now
-                  </a>
+<div class="flex gap-3">
+  <!-- Add to Favorites -->
+  <form action="/favourites" method="post" class="flex-1">
+    <input type="hidden" value="<%= home.id ?? '' %>" name="id" />
 
-                  <!-- Save -->
-                  <a href="/homes/<%= home.id %>" class="flex-1 inline-flex items-center justify-center
-         border border-gray-300 py-2 rounded-xl
-         font-semibold cursor-pointer text-center
-         hover:bg-gray-100 transition">
-                    View Details
-                  </a>
+    <button
+      type="submit"
+      class="w-full inline-flex items-center justify-center gap-2
+             rounded-xl border border-rose-300
+             bg-rose-50 py-3 font-semibold text-rose-600
+             shadow-sm
+             hover:bg-rose-100 hover:shadow-md
+             active:scale-95 transition-all duration-200
+             focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-2">
+       <span>Add to Favorites</span>
+    </button>
+  </form>
 
-                </div>
+  <!-- View Details -->
+  <a
+    href="/homes/<%= home.id %>"
+    class="flex-1 inline-flex items-center justify-center
+           rounded-xl border border-gray-300
+           bg-gray-50 py-3 font-semibold text-gray-700
+           shadow-sm
+           hover:bg-gray-100 hover:shadow-md
+           active:scale-95 transition-all duration-200">
+    View Details
+  </a>
+</div>
+
               </div>
             </div>
 
@@ -99,24 +109,6 @@
         </div>
       </footer>
 
-      <!-- JS -->
-      <script>
-        function toggleFav(btn) {
-          if (btn.innerText === "🤍") {
-            btn.innerText = "❤️";
-            btn.classList.add("text-rose-500");
-          } else {
-            btn.innerText = "🤍";
-            btn.classList.remove("text-rose-500");
-          }
-        }
-
-        function saveHome(btn) {
-          btn.innerText = "Saved ✔";
-          btn.classList.add("bg-green-500", "text-white");
-          btn.classList.remove("border", "border-gray-300");
-        }
-      </script>
 
   </body>
 

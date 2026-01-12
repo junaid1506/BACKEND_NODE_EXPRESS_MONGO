@@ -1,103 +1,106 @@
 <%- include('../Partials/header') %>
-</head>
+  </head>
 
-<body class="bg-gray-100 text-gray-900">
+  <body class="bg-gray-100 text-gray-900">
 
-  <%- include('../Partials/nav') %>
+    <%- include('../Partials/nav') %>
 
-  <!-- Page Header -->
-  <section class="bg-white border-b">
-    <div class="max-w-7xl mx-auto px-6 py-10">
-      <h1 class="text-4xl font-bold mb-2">Favorite Homes</h1>
-      <p class="text-gray-500">
-        Your saved & favorite stays
-      </p>
-    </div>
-  </section>
+      <!-- Page Header -->
+      <section class="bg-white border-b">
+        <div class="max-w-7xl mx-auto px-6 py-10">
+          <h1 class="text-4xl font-bold mb-2">Favorite Homes</h1>
+          <p class="text-gray-500">
+            Your saved & favorite stays
+          </p>
+        </div>
+      </section>
 
-  <!-- Favorite Homes -->
-  <section class="max-w-7xl mx-auto px-6 py-16">
-    <% if (registerHomes.length === 0) { %>
-      <p class="text-center text-gray-500 text-lg">
-        No favorite homes yet.
-      </p>
-    <% } %>
+      <!-- Favorite Homes -->
+      <section class="max-w-7xl mx-auto px-6 py-16">
+        <% if (registerHomes.length===0) { %>
+          <p class="text-center text-gray-500 text-lg">
+            No favorite homes yet.
+          </p>
+          <% } %>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-      <% registerHomes.forEach((home, index) => { %>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+              <% registerHomes.forEach((home, index)=> { %>
 
-      <div class="bg-white rounded-3xl shadow hover:shadow-2xl transition overflow-hidden">
+                <div class="bg-white rounded-3xl shadow hover:shadow-2xl transition overflow-hidden">
 
-        <!-- Image -->
-        <div class="relative h-56">
-          <img
-            src="<%= home.photoUrl && home.photoUrl.trim() !== '' 
+                  <!-- Image -->
+                  <div class="relative h-56">
+                    <img src="<%= home.photoUrl && home.photoUrl.trim() !== '' 
               ? home.photoUrl 
               : 'https://images.unsplash.com/photo-1566073771259-6a8506099945' %>"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945';"
-            alt="home image"
-            class="w-full h-full object-cover"
-          />
+                      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945';"
+                      alt="home image" class="w-full h-full object-cover" />
 
-          <!-- Rating -->
-          <span class="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold shadow">
-            ⭐ <%= home.rating || '4.5' %>
-          </span>
+                    <!-- Rating -->
+                    <span class="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold shadow">
+                      ⭐ <%= home.rating || '4.5' %>
+                    </span>
 
-          <!-- Favorite -->
-          <button
-            onclick="toggleFav(this)"
-            class="absolute top-4 right-4 bg-white rounded-full p-2 shadow text-xl text-rose-500 hover:scale-110 transition"
-          >
-            ❤️
-          </button>
+                    <!-- Favorite -->
+                    <button onclick="toggleFav(this)"
+                      class="absolute top-4 right-4 bg-white rounded-full p-2 shadow text-xl text-rose-500 hover:scale-110 transition">
+                      ❤️
+                    </button>
+                  </div>
+
+                  <!-- Content -->
+                  <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-1">
+                      <%= home.houseName %>
+                    </h3>
+
+                    <p class="text-gray-500 mb-3">
+                      📍 <%= home.localion %>
+                    </p>
+
+                    <p class="text-lg font-bold mb-5">
+                      $<%= home.price %>
+                        <span class="text-sm text-gray-500 font-normal">/ night</span>
+                    </p>
+
+                    <!-- Actions -->
+                    <div class="flex gap-3">
+                      <!-- Book Now -->
+                      <a href="/book/<%= index %>" class="flex-1 bg-rose-500 text-white py-3 rounded-xl text-center font-semibold
+            hover:bg-rose-600 active:scale-95 transition-all duration-200">
+                        Book Now
+                      </a>
+
+                      <!-- Remove -->
+                      <form action="/remove-fav" method="post" class="flex-1">
+                        <input type="hidden" name="id" value="<%= home.id ?? '' %>" />
+
+                        <button type="submit" class="w-full flex items-center justify-center rounded-xl
+             border border-red-300 bg-white py-3
+             font-semibold text-red-600 shadow-sm
+             hover:bg-red-50 hover:shadow-md
+             active:scale-95 transition-all duration-200
+             focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2">
+                          Remove
+                        </button>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+
+                <% }) %>
+            </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-white border-t mt-20">
+        <div class="max-w-7xl mx-auto px-6 py-6 text-center text-gray-500 text-sm">
+          © 2026 Airbnb Clone • Favorite Homes
         </div>
-
-        <!-- Content -->
-        <div class="p-6">
-          <h3 class="text-xl font-semibold mb-1">
-            <%= home.houseName %>
-          </h3>
-
-          <p class="text-gray-500 mb-3">
-            📍 <%= home.localion %>
-          </p>
-
-          <p class="text-lg font-bold mb-5">
-            $<%= home.price %>
-            <span class="text-sm text-gray-500 font-normal">/ night</span>
-          </p>
-
-          <!-- Actions -->
-          <div class="flex gap-3">
-            <a
-              href="/book/<%= index %>"
-              class="flex-1 bg-rose-500 text-white py-2 rounded-xl text-center font-semibold hover:bg-rose-600 transition"
-            >
-              Book Now
-            </a>
-          
-            <button
-
-              class="flex-1 border border-gray-300 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
-            >
-              Remove
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <% }) %>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-white border-t mt-20">
-    <div class="max-w-7xl mx-auto px-6 py-6 text-center text-gray-500 text-sm">
-      © 2026 Airbnb Clone • Favorite Homes
-    </div>
-  </footer>
+      </footer>
 
 
-</body>
-</html>
+  </body>
+
+  </html>

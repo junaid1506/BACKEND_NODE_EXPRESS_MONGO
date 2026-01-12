@@ -32,7 +32,12 @@ module.exports = class Favourites {
 
   save() {
     Favourites.fetchAll((favhome) => {
-      favhome.push(this.homeId);
+      if (favhome.includes(this.homeId)) {
+        console.log("Home Already Added");
+      } else {
+        favhome.push(this.homeId);
+      }
+
       fs.writeFile(filePath, JSON.stringify(favhome), (err) => {
         console.log("File Write Succesfully");
         console.log(err);
@@ -47,6 +52,18 @@ module.exports = class Favourites {
       } else {
         callback(JSON.parse(data));
       }
+    });
+  }
+
+  static removeById(homeID, cb) {
+    this.fetchAll((favhome) => {
+      const updated = favhome.filter((id) => id !== homeID);
+      fs.writeFile(filePath, JSON.stringify(updated), (err) => {
+        if (err) {
+          console.log("Remove error:", err);
+        }
+        cb(updated);
+      });
     });
   }
 };

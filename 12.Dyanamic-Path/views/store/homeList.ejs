@@ -65,10 +65,8 @@
                 <!-- Buttons -->
                 <div class="flex gap-3">
                   <!-- Book Now -->
-                  <a href="/book/<%= index %>"
-                    class="flex-1 text-center bg-rose-500 text-white py-2 rounded-xl font-semibold hover:bg-rose-600 transition">
-                    Book Now
-                  </a>
+                  <%- include('../Partials/favroute', { home: home }) %>
+
 
                   <!-- Save -->
                   <a href="/homes/<%= home.id %>" class="flex-1 inline-flex items-center justify-center

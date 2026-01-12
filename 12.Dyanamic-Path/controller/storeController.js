@@ -1,4 +1,5 @@
 const Home = require("../models/home");
+const Favourites = require("../models/favourites");
 
 exports.getIndex = (req, res, next) => {
   Home.fetchAll((registerHomes) => {
@@ -17,10 +18,19 @@ exports.getHome = (req, res, next) => {
   });
 };
 exports.getFavroute = (req, res, next) => {
-  Home.fetchAll((registerHomes) => {
-    res.render("store/favouriteList", {
-      registerHomes: registerHomes,
-      pageTitle: "airbnb Favourite-List",
+  // let allHome;
+  Home.fetchAll((allHome) => {
+    Favourites.fetchAll((favHomes) => {
+      if (allHome.includes(favHomes)) {
+        console.log("Home already added in fav");
+      }
+      const registerHomes = allHome.filter((home) =>
+        favHomes.includes(home.id)
+      );
+      res.render("store/favouriteList", {
+        registerHomes: registerHomes,
+        pageTitle: "airbnb Favourite-List",
+      });
     });
   });
 };
@@ -29,6 +39,11 @@ exports.getBooking = (req, res, next) => {
   res.render("store/booking", {
     pageTitle: "My Bookings",
   });
+};
+exports.postFavourites = (req, res, next) => {
+  const fav = new Favourites(req.body.id);
+  fav.save();
+  res.redirect("/favroute");
 };
 
 exports.getHomeDetails = (req, res, next) => {
@@ -44,4 +59,4 @@ exports.getHomeDetails = (req, res, next) => {
       });
     }
   });
-};  
+};

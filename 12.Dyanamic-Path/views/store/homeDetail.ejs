@@ -70,22 +70,24 @@
       </p>
 
       <!-- Buttons -->
-      <div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4">
 
-        <a
-          href="/book/<%= home.id || '' %>"
-          class="text-center bg-rose-500 text-white py-3 rounded-xl font-semibold hover:bg-rose-600 transition"
-        >
-          Book Now
-        </a>
+  <!-- Book Now Button -->
+  <a
+    href="/book/<%= home.id || '' %>"
+    class="w-full text-center bg-rose-500 text-white py-3 rounded-xl font-semibold 
+           shadow-md hover:bg-rose-600 hover:shadow-lg 
+           transition duration-200 ease-in-out
+           focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-2"
+  >
+    Book Now
+  </a>
 
-        <button
-          onclick="toggleFav(this)"
-          class="border border-gray-300 py-3 rounded-xl font-semibold hover:bg-gray-100 transition"
-        >
-          🤍 Save to Favorites
-        </button>
-      </div>
+  <!-- Add to Favorites -->
+    <%- include('../Partials/favroute') %>
+
+</div>
+
 
       <p class="text-xs text-gray-500 text-center mt-4">
         You won’t be charged yet
@@ -99,21 +101,6 @@
       © 2026 Airbnb Clone • Home Details Page
     </div>
   </footer>
-
-  <!-- JS -->
-  <script>
-    function toggleFav(btn) {
-      if (btn.innerText.includes("🤍")) {
-        btn.innerText = "❤️ Saved";
-        btn.classList.add("bg-rose-500", "text-white");
-        btn.classList.remove("border");
-      } else {
-        btn.innerText = "🤍 Save to Favorites";
-        btn.classList.remove("bg-rose-500", "text-white");
-        btn.classList.add("border");
-      }
-    }
-  </script>
 
 </body>
 </html>

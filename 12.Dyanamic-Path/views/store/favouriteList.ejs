@@ -76,9 +76,9 @@
             >
               Book Now
             </a>
-
+          
             <button
-              onclick="removeFav(this)"
+
               class="flex-1 border border-gray-300 py-2 rounded-xl font-semibold hover:bg-gray-100 transition"
             >
               Remove
@@ -98,18 +98,6 @@
     </div>
   </footer>
 
-  <!-- JS -->
-  <script>
-    function toggleFav(btn) {
-      btn.innerText = "🤍";
-      btn.classList.remove("text-rose-500");
-    }
-
-    function removeFav(btn) {
-      const card = btn.closest(".bg-white");
-      card.remove();
-    }
-  </script>
 
 </body>
 </html>

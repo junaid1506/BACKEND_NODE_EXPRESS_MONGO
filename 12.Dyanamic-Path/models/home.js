@@ -12,7 +12,9 @@ module.exports = class Home {
     this.price = price;
     this.rating = rating;
     this.photoUrl = photoUrl;
-  }
+  } 
+
+
 
   // async save() {
   //   this.id = Math.random().toString();

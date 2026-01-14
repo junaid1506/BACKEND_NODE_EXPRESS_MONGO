@@ -1,0 +1,10 @@
+<form action="/favourites" method="post">
+  <input type="hidden" value="<%= home.id || '' %>" name="id" />
+
+  <button
+    type="submit"
+    class="w-full flex items-center justify-center gap-2 border border-gray-300 py-3 rounded-xl font-semibold text-gray-700 bg-white shadow-sm hover:bg-gray-100 hover:shadow-md active:scale-[0.98] transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
+  >
+    🤍 <span>Add to Favorites</span>
+  </button>
+</form>

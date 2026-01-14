@@ -20,6 +20,8 @@
 
         <!-- Form -->
 <form action="/<%= editing ? "edit-home" : "add-home" %>" method="POST" class="space-y-6">
+  <input type="hidden" name="id" value="<%= editing ? home.id : '' %>">
+
 
   <!-- House Name -->
   <div>
@@ -107,7 +109,6 @@
   >
     <%= editing ? "Update Home" : "Register Home" %>
   </button>
-
 </form>
 
       </div>

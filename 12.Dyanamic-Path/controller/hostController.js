@@ -23,7 +23,7 @@ exports.getEditHome = (req, res, next) => {
     if (!home) {
       return res.redirect("/host-home-list");
     }
-    console.log(homeId, editing, home);
+    // console.log(homeId, editing, home);
     res.render("host/editHome", {
       pageTitle: "Edit Your Home",
       editing: editing,
@@ -42,4 +42,18 @@ exports.postAddHome = (req, res, next) => {
 
   home.save();
   res.render("host/successMsg", { pageTitle: "Home Registered Successfully" });
+};
+exports.postEditHome = (req, res, next) => {
+  const { id, name, location, price, rating, photoUrl } = req.body;
+  const home = new Home(name, location, price, rating, photoUrl);
+  home.id = id;
+
+  home.save();
+  res.redirect("/host-home-list");
+};
+
+exports.postDeleteHome = (req, res, next) => {
+  const homeId = req.params.homeId;
+  Home.deleteById(homeId);
+  res.redirect("/host-home-list");
 };

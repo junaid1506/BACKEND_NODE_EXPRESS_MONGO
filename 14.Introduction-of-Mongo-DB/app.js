@@ -9,6 +9,7 @@ const { get404 } = require("./controller/error");
 const storeRoutes = require("./routes/storeRouter");
 const { hostRouter } = require("./routes/hostRouter");
 const rootDir = require("./utils/pathUtils");
+const { mongoConnect } = require("./utils/databaseUtils");
 
 const app = express();
 
@@ -28,6 +29,9 @@ app.use(hostRouter);
 app.use(get404);
 
 const PORT = 3000;
+mongoConnect((client) => {
+  console.log(client);
+});
 app.listen(PORT, () => {
   console.log("Server is running on localhost 3000");
 });

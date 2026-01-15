@@ -1,95 +1,39 @@
-//core module
-const fs = require("fs");
-const path = require("path");
-
-const rootDir = require("../utils/pathUtils");
-const Favourites = require("./favourites");
-const filePath = path.join(rootDir, "data", "home.json");
-const favFilePath = path.join(rootDir, "data", "favourites.json");
+const db = require("../utils/databaseUtils");
 
 module.exports = class Home {
-  constructor(houseName, localion, price, rating, photoUrl) {
-    this.houseName = houseName;
-    this.localion = localion;
+  constructor(homeName, location, price, rating, description, imageUrl, id) {
+    this.homeName = homeName;
+    this.location = location;
     this.price = price;
     this.rating = rating;
-    this.photoUrl = photoUrl;
+    this.description = description;
+    this.imageUrl = imageUrl;
+    this.id = id;
   }
-
-  // async save() {
-  //   this.id = Math.random().toString();
-  //   const homes = await Home.fetchAll();
-  //   homes.push(this);
-  //   await fs.promises.writeFile(filePath, JSON.stringify(homes));
-  // }
 
   save() {
-    Home.fetchAll((registerHomes) => {
-      if (this.id) {
-        // Edit the existing home
-        registerHomes = registerHomes.map((home) =>
-          home.id === this.id ? this : home
-        );
-      } else {
-        // Add new home
-        this.id = Math.random().toString();
-        registerHomes.push(this);
-      }
-
-      fs.writeFile(filePath, JSON.stringify(registerHomes), (err) => {
-        console.log("File Write Successfull");
-        console.log(`Error is ${err}`);
-      });
-    });
+    return db.execute(
+      "INSERT INTO homes (homeName, location, price, rating, imageUrl, description) VALUES (?,?,?,?,?,?)",
+      [
+        this.homeName ?? null,
+        this.location ?? null,
+        this.price ?? null,
+        this.rating ?? null,
+        this.description ?? null,
+        this.imageUrl ?? null,
+      ]
+    );
   }
 
-  // static async fetchAll() {
-  //   const data = await fs.promises.readFile(filePath, "utf8");
-  //   return data ? JSON.parse(data) : [];
-  // }
-
-  static fetchAll(callback) {
-    fs.readFile(filePath, "utf8", (err, data) => {
-      if (err || !data) {
-        callback([]);
-      } else {
-        callback(JSON.parse(data));
-      }
-    });
+  static fetchAll() {
+    return db.execute("SELECT * FROM homes");
   }
 
-  static findById(homeId, callback) {
-    Home.fetchAll((homes) => {
-      const home = homes.find((h) => h.id === homeId);
-      callback(home);
-    });
+  static findById(homeId) {
+    return db.execute("SELECT * FROM homes WHERE id = ?", [homeId]);
   }
 
   static deleteById(homeId) {
-    Home.fetchAll((homes) => {
-      const updateHomes = homes.filter((h) => h.id !== homeId);
-
-      fs.writeFile(filePath, JSON.stringify(updateHomes), (err) => {
-        if (err) {
-          console.log("Error in Deleting Home", err);
-          return;
-        } else {
-          console.log("Home Deleted Successfully");
-        }
-      });
-    });
-
-    Favourites.fetchAll((favHomes) => {             
-      const updatedFavs = favHomes.filter((id) => id !== homeId);
-      Favourites.removeById(homeId, () => {
-        fs.writeFile(favFilePath, JSON.stringify(updatedFavs), (err) => {
-          if (err) {
-            console.log("Error in Deleting Favourite Home", err);
-          } else {
-            console.log("Favourite Home Deleted Successfully");
-          }
-        });
-      });
-    });
+    return db.execute("DELETE FROM homes WHERE id = ?", [homeId]);
   }
 };

@@ -1,3 +1,4 @@
+const { name } = require("ejs");
 const Home = require("../models/home");
 
 exports.getAddHome = (req, res, next) => {
@@ -8,7 +9,7 @@ exports.getAddHome = (req, res, next) => {
 };
 
 exports.getHostHomeList = (req, res, next) => {
-  Home.fetchAll((registerHomes) => {
+  Home.fetchAll().then(([registerHomes]) => {
     res.render("host/hostHomeList", {
       registerHomes: registerHomes,
       pageTitle: "airbnb Host-Home-list",
@@ -19,7 +20,8 @@ exports.getHostHomeList = (req, res, next) => {
 exports.getEditHome = (req, res, next) => {
   const homeId = req.params.homeId;
   const editing = req.query.editing === "true";
-  Home.findById(homeId, (home) => {
+  Home.findById(homeId).then(([homes]) => {
+    const home = homes[0];
     if (!home) {
       return res.redirect("/host-home-list");
     }
@@ -32,21 +34,23 @@ exports.getEditHome = (req, res, next) => {
   });
 };
 exports.postAddHome = (req, res, next) => {
-  const home = new Home(
-    req.body.name,
-    req.body.location,
-    req.body.price,
-    req.body.rating,
-    req.body.photoUrl
-  );
+  const { name, location, price, rating, imageUrl, description } = req.body;
+  const home = new Home(name, location, price, rating, imageUrl, description);
 
   home.save();
   res.render("host/successMsg", { pageTitle: "Home Registered Successfully" });
 };
 exports.postEditHome = (req, res, next) => {
-  const { id, name, location, price, rating, photoUrl } = req.body;
-  const home = new Home(name, location, price, rating, photoUrl);
-  home.id = id;
+  const { name, location, price, rating, description, imageUrl, id } = req.body;
+  const home = new Home(
+    name,
+    location,
+    price,
+    rating,
+    description,
+    imageUrl,
+    id
+  );
 
   home.save();
   res.redirect("/host-home-list");
@@ -54,6 +58,9 @@ exports.postEditHome = (req, res, next) => {
 
 exports.postDeleteHome = (req, res, next) => {
   const homeId = req.params.homeId;
-  Home.deleteById(homeId);
-  res.redirect("/host-home-list");
+  Home.deleteById(homeId)
+    .then(() => {
+      res.redirect("/host-home-list");
+    })
+    .catch((err) => console.log(err));
 };

@@ -20,7 +20,7 @@
 
         <!-- Form -->
 <form action="/<%= editing ? "edit-home" : "add-home" %>" method="POST" class="space-y-6">
-  <input type="hidden" name="id" value="<%= editing ? home.id : '' %>">
+  <input type="hidden" name="id" value="<%= editing ? home._id : '' %>">
 
 
   <!-- House Name -->
@@ -30,7 +30,7 @@
     </label>
     <input
       type="text"
-      name="name"
+      name="homeName"
       value="<%= editing ? home.homeName : '' %>"
       placeholder="Enter house name"
       required

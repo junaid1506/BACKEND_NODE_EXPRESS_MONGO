@@ -1,69 +1,34 @@
-//core module
-const fs = require("fs");
-const path = require("path");
-
-const rootDir = require("../utils/pathUtils");
-const filePath = path.join(rootDir, "data", "favourites.json");
+const { getDb } = require("../utils/databaseUtils");
 
 module.exports = class Favourites {
   constructor(homeId) {
     this.homeId = homeId;
   }
 
-  // save() {
-  //   Favourites.fetchAll((favHomes) => {
-  //     favHomes.push(this.homeId);
-  //     fs.writeFile(filePath, JSON.stringify(favHomes), (err) => {
-  //       console.log("File Write Successfull");
-  //       console.log(`Error is ${err}`);
-  //     });
-  //   });
-  // }
-
-  // static fetchAll(callback) {
-  //   fs.readFile(filePath, "utf8", (err, data) => {
-  //     if (err || !data) {
-  //       callback([]);
-  //     } else {
-  //       callback(JSON.parse(data));
-  //     }
-  //   });
-  // }
-
   save() {
-    Favourites.fetchAll((favhome) => {
-      if (favhome.includes(this.homeId)) {
-        console.log("Home Already Added");
-      } else {
-        favhome.push(this.homeId);
-      }
+    const db = getDb();
 
-      fs.writeFile(filePath, JSON.stringify(favhome), (err) => {
-        console.log("File Write Succesfully");
-        console.log(err);
-      });
-    });
-  }
+    return Favourites.fetchAll().then((favHomes) => {
+      const exists = favHomes.some((fav) => fav.homeId === this.homeId);
 
-  static fetchAll(callback) {
-    fs.readFile(filePath, "utf8", (err, data) => {
-      if (!data || err) {
-        callback([]);
+      if (exists) {
+        console.log("Home already in Favourites");
+        return Promise.resolve(); // ✅ promise continue
       } else {
-        callback(JSON.parse(data));
+        return db.collection("favourites").insertOne({
+          homeId: this.homeId,
+        });
       }
     });
   }
 
-  static removeById(homeID, cb) {
-    this.fetchAll((favhome) => {
-      const updated = favhome.filter((id) => id !== homeID);
-      fs.writeFile(filePath, JSON.stringify(updated), (err) => {
-        if (err) {
-          console.log("Remove error:", err);
-        }
-        cb(updated);
-      });
-    });
+  static fetchAll() {
+    const db = getDb();
+    return db.collection("favourites").find().toArray();
+  }
+
+  static removeById(homeID) {
+    const db = getDb();
+    return db.collection("favourites").deleteOne({ homeId: homeID });
   }
 };

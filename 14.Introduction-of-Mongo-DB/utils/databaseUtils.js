@@ -10,11 +10,11 @@ let _db;
 const mongoConnect = (cb) => {
   MongoClient.connect(MONGO_URL)
     .then((client) => {
-      cb();
       _db = client.db("airbnb");
+      cb();
     })
     .catch((err) => {
-      console.log('MongoDB Connection Failed');
+      console.log("MongoDB Connection Failed");
     });
 };
 

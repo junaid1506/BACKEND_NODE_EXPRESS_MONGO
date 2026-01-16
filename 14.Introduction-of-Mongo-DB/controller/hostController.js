@@ -37,7 +37,9 @@ exports.postAddHome = (req, res, next) => {
   const { name, location, price, rating, description, imageUrl } = req.body;
   const home = new Home(name, location, price, rating, description, imageUrl);
 
-  home.save();
+  home.save().then(() => {
+    console.log("Home Saved Successfully");
+  });
   res.render("host/successMsg", { pageTitle: "Home Registered Successfully" });
 };
 exports.postEditHome = (req, res, next) => {

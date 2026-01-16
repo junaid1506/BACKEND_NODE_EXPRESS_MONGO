@@ -29,8 +29,8 @@ app.use(hostRouter);
 app.use(get404);
 
 const PORT = 3000;
-mongoConnect((client) => {
-  console.log(client);
+mongoConnect(() => {
+  console.log("Connected to MongoDB");
 });
 app.listen(PORT, () => {
   console.log("Server is running on localhost 3000");

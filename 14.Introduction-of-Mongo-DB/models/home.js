@@ -1,4 +1,4 @@
-
+const { getDb } = require("../utils/databaseUtils");
 
 module.exports = class Home {
   constructor(homeName, location, price, rating, description, imageUrl, id) {
@@ -12,17 +12,13 @@ module.exports = class Home {
   }
 
   save() {
-    
+   const db =  getDb()
+   db.collection("homes").insertOne(this)
   }
 
-  static fetchAll() {
-    
-  }
+  static fetchAll() {}
 
-  static findById(homeId) {
-    
-  }
+  static findById(homeId) {}
 
-  static deleteById(homeId) {
-  }
+  static deleteById(homeId) {}
 };

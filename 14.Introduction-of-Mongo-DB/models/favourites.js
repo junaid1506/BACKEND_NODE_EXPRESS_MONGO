@@ -13,7 +13,7 @@ module.exports = class Favourites {
 
       if (exists) {
         console.log("Home already in Favourites");
-        return new Promise.resolve(); // ✅ promise continue
+        return Promise.resolve(); // ✅ promise continue
       } else {
         return db.collection("favourites").insertOne({
           homeId: this.homeId,

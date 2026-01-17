@@ -1,34 +1,23 @@
+const mongoose = require("mongoose");
 
+const favouritesScheme = mongoose.Schema({
+  homeId: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+});
 
-module.exports = class Favourites {
-  constructor(homeId) {
-    this.homeId = homeId;
-  }
+module.exports = mongoose.model("Favourites", favouritesScheme);
 
-  save() {
-    const db = getDb();
+// static find() {
+//   const db = getDb();
+//   return db.collection("favourites").find().toArray();
+// }
 
-    return Favourites.fetchAll().then((favHomes) => {
-      const exists = favHomes.some((fav) => fav.homeId === this.homeId);
+// static removeById(homeID) {
+//   const db = getDb();
+//   return db.collection("favourites").deleteOne({ homeId: homeID });
+// }
 
-      if (exists) {
-        console.log("Home already in Favourites");
-        return Promise.resolve(); // ✅ promise continue
-      } else {
-        return db.collection("favourites").insertOne({
-          homeId: this.homeId,
-        });
-      }
-    });
-  }
-
-  static fetchAll() {
-    const db = getDb();
-    return db.collection("favourites").find().toArray();
-  }
-
-  static removeById(homeID) {
-    const db = getDb();
-    return db.collection("favourites").deleteOne({ homeId: homeID });
-  }
-};
+//  this.homeId = homeId;

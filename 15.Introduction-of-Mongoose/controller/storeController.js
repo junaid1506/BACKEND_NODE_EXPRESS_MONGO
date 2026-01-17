@@ -2,7 +2,7 @@ const Home = require("../models/home");
 const Favourites = require("../models/favourites");
 
 exports.getIndex = (req, res, next) => {
-  Home.fetchAll().then((registerHomes) => {
+  Home.find().then((registerHomes) => {
     res.render("store/index", {
       registerHomes: registerHomes,
       pageTitle: "airbnb Home",
@@ -10,7 +10,7 @@ exports.getIndex = (req, res, next) => {
   });
 };
 exports.getHome = (req, res, next) => {
-  Home.fetchAll().then((registerHomes) => {
+  Home.find().then((registerHomes) => {
     res.render("store/homeList", {
       registerHomes: registerHomes,
       pageTitle: "airbnb Home-list",
@@ -19,11 +19,11 @@ exports.getHome = (req, res, next) => {
 };
 exports.getFavroute = (req, res, next) => {
   // let allHome;
-  Home.fetchAll().then((registerHomes) => {
+  Home.find().then((registerHomes) => {
     allHome = registerHomes;
-    Favourites.fetchAll().then((favHomes) => {
+    Favourites.find().then((favHomes) => {
       const favouriteHomes = allHome.filter((home) =>
-        favHomes.find((fav) => fav.homeId.toString() === home._id.toString())
+        favHomes.find((fav) => fav.homeId.toString() === home._id.toString()),
       );
       res.render("store/favouriteList", {
         registerHomes: favouriteHomes,
@@ -32,8 +32,8 @@ exports.getFavroute = (req, res, next) => {
     });
   });
 
-  // Home.fetchAll().then((registerHomes) => {
-  //   Favourites.fetchAll().then((favHomes) => {
+  // Home.find().then((registerHomes) => {
+  //   Favourites.find().then((favHomes) => {
   //     const registerHomes = registerHomes.filter((home) =>
   //       favHomes.includes(home._id)
   //     );
@@ -51,7 +51,8 @@ exports.getBooking = (req, res, next) => {
   });
 };
 exports.postFavourites = (req, res, next) => {
-  const fav = new Favourites(req.body.id);
+  const id = req.body.id;
+  const fav = new Favourites({ homeId: id });
   fav.save().then(() => {
     console.log("Added to Favourites");
     res.redirect("/favroute");
@@ -59,10 +60,16 @@ exports.postFavourites = (req, res, next) => {
 };
 
 exports.postRemoveFavourites = (req, res, next) => {
-  const homeID = req.body.id;
-  Favourites.removeById(homeID).then(() => {
-    res.redirect("/favroute");
+  const homeId = req.body.id;
+  Favourites.findOne().then((id) => {
+    console.log(id.homeId === homeId);
   });
+
+  Favourites.findOneAndDelete({ homeId })
+    .then(() => {
+      res.redirect("/favroute");
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.getHomeDetails = (req, res, next) => {

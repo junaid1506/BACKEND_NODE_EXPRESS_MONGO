@@ -1,5 +1,4 @@
 const { ObjectId } = require("mongodb");
-const { getDb } = require("../utils/databaseUtils");
 
 module.exports = class Home {
   constructor(homeName, location, price, rating, description, imageUrl, _id) {

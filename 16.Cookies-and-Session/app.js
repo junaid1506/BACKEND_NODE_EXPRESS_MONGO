@@ -22,6 +22,14 @@ app.use(express.urlencoded());
 
 app.use(express.static(path.join(rootDir, "public")));
 
+app.use((req, res, next) => {
+  // console.log("Cookie Check Middleware", req.get("Cookie"));
+  req.isLoggedIn = req.get("Cookie")
+    ? req.get("Cookie").split("=")[1] === "true"
+    : false;
+  next();
+});
+
 app.use(authRouter);
 app.use(storeRoutes);
 app.use((req, res, next) => {

@@ -6,7 +6,11 @@ exports.getLogin = (req, res) => {
   });
 };
 exports.postLogin = (req, res) => {
-  console.log(req.body);
-  res.redirect("/host-home-list");
-  req.isloggedIn = true;
+  res.cookie("isLoggedIn", true); // ✅ correct
+  res.redirect("/");
+};
+
+exports.postLogout = (req, res) => {
+  res.cookie("isLoggedIn", false); // ✅ correct
+  res.redirect("/login");
 };

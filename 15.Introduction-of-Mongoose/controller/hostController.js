@@ -1,5 +1,6 @@
 // const Home = require("../models/home");
 
+const favourites = require("../models/favourites");
 const Home = require("../models/home");
 
 exports.getAddHome = (req, res, next) => {
@@ -69,8 +70,12 @@ exports.postEditHome = (req, res, next) => {
 
 exports.postDeleteHome = (req, res, next) => {
   const homeId = req.params.homeId;
+
   console.log(homeId);
   Home.findByIdAndDelete(homeId)
+    .then(() => {
+      return favourites.findOneAndDelete({ homeId: homeId });
+    })
     .then(() => {
       res.redirect("/host-home-list");
     })

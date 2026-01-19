@@ -52,18 +52,20 @@ exports.getBooking = (req, res, next) => {
 };
 exports.postFavourites = (req, res, next) => {
   const id = req.body.id;
-  const fav = new Favourites({ homeId: id });
-  fav.save().then(() => {
-    console.log("Added to Favourites");
-    res.redirect("/favroute");
+  Favourites.findOne({ homeId: id }).then((existingFav) => {
+    if (existingFav) {
+      return res.redirect("/favroute");
+    }
+    const fav = new Favourites({ homeId: id });
+    fav.save().then(() => {
+      console.log("Added to Favourites");
+      res.redirect("/favroute");
+    });
   });
 };
 
 exports.postRemoveFavourites = (req, res, next) => {
   const homeId = req.body.id;
-  Favourites.findOne().then((id) => {
-    console.log(id.homeId === homeId);
-  });
 
   Favourites.findOneAndDelete({ homeId })
     .then(() => {
@@ -75,7 +77,6 @@ exports.postRemoveFavourites = (req, res, next) => {
 exports.getHomeDetails = (req, res, next) => {
   const homeId = req.params.id;
   Home.findById(homeId).then((home) => {
-    console.log(home);
     res.render("store/homeDetail", {
       pageTitle: "Home Details",
       home: home,

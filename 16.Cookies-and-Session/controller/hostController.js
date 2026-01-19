@@ -7,6 +7,7 @@ exports.getAddHome = (req, res, next) => {
   res.render("host/editHome", {
     pageTitle: "Register Your Home",
     editing: false,
+    isLoggedIn : req.isLoggedIn
   });
 };
 
@@ -15,6 +16,7 @@ exports.getHostHomeList = (req, res, next) => {
     res.render("host/hostHomeList", {
       registerHomes: registerHomes,
       pageTitle: "airbnb Host-Home-list",
+      isLoggedIn : req.isLoggedIn
     });
   });
 };
@@ -31,6 +33,7 @@ exports.getEditHome = (req, res, next) => {
       pageTitle: "Edit Your Home",
       editing: editing,
       home: home,
+      isLoggedIn : req.isLoggedIn
     });
   });
 };
@@ -46,7 +49,7 @@ exports.postAddHome = (req, res, next) => {
   });
 
   home.save();
-  res.render("host/successMsg", { pageTitle: "Home Registered Successfully" });
+  res.render("host/successMsg", { pageTitle: "Home Registered Successfully" ,isLoggedIn : req.isLoggedIn});
 };
 exports.postEditHome = (req, res, next) => {
   const { homeName, location, price, rating, description, imageUrl, id } =

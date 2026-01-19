@@ -8,6 +8,10 @@
 
       <!-- Center Navigation -->
       <nav class="flex items-center space-x-2">
+
+        <% if(isLoggedIn) { %>
+
+
         <a
           href="/home-list"
           class="px-5 py-3 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200"
@@ -38,6 +42,7 @@
         >
           Add Home
         </a>
+         <% } %>
       </nav>
 
       <!-- Right Side - Login -->

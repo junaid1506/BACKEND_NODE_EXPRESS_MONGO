@@ -9,6 +9,7 @@ const { get404 } = require("./controller/error");
 
 const storeRoutes = require("./routes/storeRouter");
 const { hostRouter } = require("./routes/hostRouter");
+const authRouter = require("./routes/authRouter");
 const rootDir = require("./utils/pathUtils");
 
 const app = express();
@@ -21,7 +22,15 @@ app.use(express.urlencoded());
 
 app.use(express.static(path.join(rootDir, "public")));
 
+app.use(authRouter);
 app.use(storeRoutes);
+app.use((req, res, next) => {
+  if (req.isLoggedIn) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+});
 app.use(hostRouter);
 
 // app.use(express.static(path.join(rootDir, "public")));
@@ -32,7 +41,7 @@ const PORT = 3000;
 
 mongoose
   .connect(
-    "mongodb+srv://root:root@cluster0.mmtvrxq.mongodb.net/airbnb?appName=Cluster0"
+    "mongodb+srv://root:root@cluster0.mmtvrxq.mongodb.net/airbnb?appName=Cluster0",
   )
   .then(() => {
     console.log("Connected to MongoDB using Mongoose");

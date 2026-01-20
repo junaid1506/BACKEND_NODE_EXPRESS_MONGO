@@ -3,6 +3,7 @@ const path = require("path");
 // external Modules
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require("express-session");
 // routes
 //controllers
 const { get404 } = require("./controller/error");
@@ -19,6 +20,13 @@ app.set("view engine", "ejs");
 app.set("views", "views");
 
 app.use(express.urlencoded());
+app.use(
+  session({
+    secret: "jndtech",
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 
 app.use(express.static(path.join(rootDir, "public")));
 

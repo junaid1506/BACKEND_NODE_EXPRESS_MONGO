@@ -6,11 +6,12 @@ exports.getLogin = (req, res) => {
   });
 };
 exports.postLogin = (req, res) => {
-  res.cookie("isLoggedIn", true); // ✅ correct
+  // res.cookie("isLoggedIn", true); // ✅ correct
+  req.session.isloggedIn = true;
   res.redirect("/");
 };
 
 exports.postLogout = (req, res) => {
-  res.cookie("isLoggedIn", false); // ✅ correct
+  // req.session.isloggedIn = false;
   res.redirect("/login");
 };

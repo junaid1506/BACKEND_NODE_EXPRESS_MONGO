@@ -24,3 +24,8 @@ exports.getSignup = (req, res) => {
     isLoggedIn: false,
   });
 };
+
+exports.postSignup = (req, res) => {
+  console.log(req.body);
+  res.redirect("/login");
+};

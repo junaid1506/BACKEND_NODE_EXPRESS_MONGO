@@ -1,3 +1,5 @@
+const { validationResult, check } = require("express-validator");
+
 exports.getLogin = (req, res) => {
   res.render("auth/login", {
     pageTitle: "Login",
@@ -39,16 +41,52 @@ exports.postSignup = [
     .normalizeEmail(),
 
   check("password")
+    .notEmpty()
+    .withMessage("Password is required")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long")
     .matches(/\d/)
     .withMessage("Password must contain at least one number"),
-  check("confirmPassword").custom((value, { req }) => {
-    if (value !== req.body.password) {
-      throw new Error("Passwords do not match");
-    }
-  }),
+
+  check("confirmPassword")
+    .notEmpty()
+    .withMessage("Confirm password is required")
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Passwords do not match");
+      }
+      return true;
+    }),
+  check("role")
+    .notEmpty()
+    .withMessage("Role is required")
+    .isIn(["Guest", "Host"]) // Capitalized to match dropdown values
+    .withMessage("Invalid role selected"),
+
+  check("terms")
+    .equals("on")
+    .withMessage("You must accept the terms and conditions"),
+
   (req, res, next) => {
+    const { name, email, password, confirmPassword, role } = req.body;
+    const errors = validationResult(req);
+    console.log(errors.array());
+    if (!errors.isEmpty()) {
+      return res.status(422).render("auth/signup", {
+        pageTitle: "Signup",
+        // isloggedIn: false, ✅ FIXED CASE
+        isLoggedIn: false,
+        errorMessages: errors.array(),
+        oldInput: {
+          name: name,
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+          role: role,
+        },
+      });
+    }
+
     console.log(req.body);
     res.redirect("/login");
   },

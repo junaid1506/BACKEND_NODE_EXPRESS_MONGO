@@ -28,7 +28,7 @@ const DB_PATH =
 const store = new MongoDBStore({
   uri: DB_PATH,
   collection: "sessions",
-});w
+});
 
 /* -------------------- MIDDLEWARE -------------------- */
 app.use(express.urlencoded({ extended: false }));

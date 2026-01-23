@@ -1,9 +1,8 @@
-
 <%- include('../Partials/header') %>
   </head>
   <body class="bg-gray-50 min-h-screen">
     <!-- Navbar -->
-<%- include('../Partials/nav') %>
+    <%- include('../Partials/nav') %>
 
     <!-- Main Content -->
     <div class="min-h-[calc(100vh-80px)] flex items-center justify-center p-4">
@@ -13,7 +12,7 @@
           <!-- Header -->
           <div class="text-center mb-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome back</h1>
-            <p class="text-gray-600">Login to your Airbnb account</p>
+            <p class="text-gray-600">Login to your account</p>
           </div>
 
           <!-- Login Form -->
@@ -105,40 +104,6 @@
             </button>
           </form>
 
-          <!-- Divider -->
-          <div class="my-6 flex items-center">
-            <div class="flex-grow border-t border-gray-300"></div>
-            <span class="mx-4 text-gray-500 text-sm">or</span>
-            <div class="flex-grow border-t border-gray-300"></div>
-          </div>
-
-          <!-- Social Login -->
-          <div class="space-y-3">
-            <button
-              type="button"
-              class="w-full py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-200 flex items-center justify-center space-x-3"
-            >
-              <i class="fab fa-google text-red-500"></i>
-              <span class="font-medium">Continue with Google</span>
-            </button>
-
-            <button
-              type="button"
-              class="w-full py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-200 flex items-center justify-center space-x-3"
-            >
-              <i class="fab fa-facebook text-blue-600"></i>
-              <span class="font-medium">Continue with Facebook</span>
-            </button>
-
-            <button
-              type="button"
-              class="w-full py-3 px-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-200 flex items-center justify-center space-x-3"
-            >
-              <i class="fab fa-apple text-gray-900"></i>
-              <span class="font-medium">Continue with Apple</span>
-            </button>
-          </div>
-
           <!-- Sign Up Link -->
           <div class="mt-8 text-center">
             <p class="text-gray-600">
@@ -194,33 +159,6 @@
           }
         });
 
-        // Form validation styling
-        const form = document.querySelector("form");
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password");
-
-        emailInput.addEventListener("input", function () {
-          if (this.value) {
-            this.classList.remove("border-red-300");
-            this.classList.add("border-green-300");
-          } else {
-            this.classList.remove("border-green-300");
-            this.classList.add("border-gray-300");
-          }
-        });
-
-        passwordInput.addEventListener("input", function () {
-          if (this.value.length >= 6) {
-            this.classList.remove("border-red-300");
-            this.classList.add("border-green-300");
-          } else if (this.value.length > 0) {
-            this.classList.remove("border-green-300");
-            this.classList.add("border-red-300");
-          } else {
-            this.classList.remove("border-red-300", "border-green-300");
-            this.classList.add("border-gray-300");
-          }
-        });
       });
     </script>
   </body>

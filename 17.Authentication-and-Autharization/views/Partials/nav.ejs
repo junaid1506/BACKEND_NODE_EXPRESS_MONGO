@@ -8,10 +8,7 @@
 
       <!-- Center Navigation -->
       <nav class="flex items-center space-x-2">
-
         <% if(isLoggedIn) { %>
-
-
           <a href="/home-list"
             class="px-5 py-3 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200">
             Home List
@@ -32,12 +29,11 @@
             class="px-5 py-3 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200">
             Add Home
           </a>
-          <% } %>
+        <% } %>
       </nav>
 
-      <!-- Right Side - Login -->
+      <!-- Right Side - Login/Signup -->
       <% if (isLoggedIn) { %>
-        <!-- <% (console.log("User is logged in" , isLoggedIn)) %> -->
         <div class="flex items-center space-x-3">
           <form action="/logout" method="POST">
             <button type="submit"
@@ -46,14 +42,18 @@
             </button>
           </form>
         </div>
-        <% } else { %>
-          <div class="flex items-center space-x-3">
-            <a href="/login"
-              class="px-6 py-2.5 text-white font-medium bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 rounded-full transition-all duration-300 shadow-sm hover:shadow-md">
-              Login
-            </a>
-          </div>
-          <% } %>
+      <% } else { %>
+        <div class="flex items-center space-x-3">
+          <a href="/signup"
+            class="px-6 py-2.5 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200 border border-gray-300">
+            Sign up
+          </a>
+          <a href="/login"
+            class="px-6 py-2.5 text-white font-medium bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 rounded-full transition-all duration-300 shadow-sm hover:shadow-md">
+            Login
+          </a>
+        </div>
+      <% } %>
     </div>
   </div>
 </header>

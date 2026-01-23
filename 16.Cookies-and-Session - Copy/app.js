@@ -1,7 +1,7 @@
 // Core modules
 const path = require("path");
 
-// External modules
+// External modules 
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");

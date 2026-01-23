@@ -1,59 +1,98 @@
-<header class="bg-white shadow-sm sticky top-0 z-50 border-b">
-  <div class="max-w-7xl mx-auto px-4 py-4">
-    <div class="flex items-center justify-between">
-      <!-- Logo - Simple and Clean -->
-      <a href="/" class="flex items-center">
-        <span class="text-2xl font-bold text-rose-500">airbnb</span>
+<header class="bg-white sticky top-0 z-50 border-b border-gray-200">
+  <div class="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
+    <div class="flex items-center justify-between py-4 gap-3 md:gap-0">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-1">
+        <svg class="w-8 h-8 text-rose-500" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M16 1c2 0 3.46 1.28 4.12 3.84l.03.14c.68 2.95.58 4.68-.63 7.35l-.08.18C18.14 15.05 16 18.5 16 21.95c0-3.45-2.14-6.9-3.44-9.44l-.08-.18c-1.21-2.67-1.31-4.4-.63-7.35l.03-.14C12.54 2.28 14 1 16 1zm0 2c-1.12 0-2.03.68-2.45 2.07l-.03.14c-.52 2.27-.43 3.56.57 5.76l.08.17c1.2 2.4 3.23 5.63 3.23 8.81 0-3.18 2.03-6.41 3.23-8.81l.08-.17c1-2.2 1.09-3.49.57-5.76l-.03-.14C18.03 3.68 17.12 3 16 3zm0 17.95c-2.14 0-3.88 1.74-3.88 3.88S13.86 28.71 16 28.71s3.88-1.74 3.88-3.88-1.74-3.88-3.88-3.88zm0 1.94c1.07 0 1.94.87 1.94 1.94s-.87 1.94-1.94 1.94-1.94-.87-1.94-1.94.87-1.94 1.94-1.94z"/>
+        </svg>
+        <span class="hidden sm:block text-xl font-semibold text-rose-500">airbnb</span>
       </a>
 
-      <!-- Center Navigation -->
-      <nav class="flex items-center space-x-2">
+      <!-- Center Navigation - Desktop Only -->
+      <nav class="hidden lg:flex items-center">
         <% if(isLoggedIn) { %>
-          <a href="/home-list"
-            class="px-5 py-3 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200">
-            Home List
-          </a>
-          <a href="/favroute"
-            class="px-5 py-3 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200">
-            Favorites
-          </a>
-          <a href="/booking"
-            class="px-5 py-3 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200">
-            Booking
-          </a>
-          <a href="/host-home-list"
-            class="px-5 py-3 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200">
-            Host Home
-          </a>
-          <a href="/add-home"
-            class="px-5 py-3 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200">
-            Add Home
-          </a>
+          <div class="flex items-center border border-gray-300 rounded-full shadow-sm hover:shadow-md transition-shadow duration-200">
+            <a href="/home-list"
+              class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 rounded-l-full transition-colors duration-150 border-r border-gray-300">
+              Home List
+            </a>
+            <a href="/favroute"
+              class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 transition-colors duration-150 border-r border-gray-300">
+              Favorites
+            </a>
+            <a href="/booking"
+              class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 transition-colors duration-150 border-r border-gray-300">
+              Booking
+            </a>
+            <a href="/host-home-list"
+              class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 transition-colors duration-150 border-r border-gray-300">
+              Host Home
+            </a>
+            <a href="/add-home"
+              class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 rounded-r-full transition-colors duration-150">
+              Add Home
+            </a>
+          </div>
         <% } %>
       </nav>
 
-      <!-- Right Side - Login/Signup -->
-      <% if (isLoggedIn) { %>
-        <div class="flex items-center space-x-3">
+      <!-- Right Side -->
+      <div class="flex items-center gap-2">
+        <% if (isLoggedIn) { %>
+          <!-- Airbnb your home - Desktop only -->
+          <a href="/add-home" class="hidden md:block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-full transition-all duration-200">
+            Airbnb your home
+          </a>
+          
+          <!-- Logout Button -->
           <form action="/logout" method="POST">
-            <button type="submit"
-              class="px-6 py-2.5 text-white font-medium bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 rounded-full transition-all duration-300 shadow-sm hover:shadow-md">
+            <button type="submit" class="px-5 py-2.5 text-sm font-semibold text-white bg-rose-500 hover:bg-rose-600 rounded-full transition-all duration-200 shadow-sm hover:shadow-md">
               Logout
             </button>
           </form>
-        </div>
-      <% } else { %>
-        <div class="flex items-center space-x-3">
-          <a href="/signup"
-            class="px-6 py-2.5 text-gray-700 font-medium hover:text-rose-500 hover:bg-gray-50 rounded-full transition duration-200 border border-gray-300">
-            Sign up
-          </a>
-          <a href="/login"
-            class="px-6 py-2.5 text-white font-medium bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 rounded-full transition-all duration-300 shadow-sm hover:shadow-md">
-            Login
-          </a>
-        </div>
-      <% } %>
+        <% } else { %>
+          <!-- Sign up & Login -->
+          <div class="flex items-center gap-2">
+            <a href="/signup"
+              class="px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-full transition-all duration-200">
+              Sign up
+            </a>
+            <a href="/login"
+              class="px-5 py-2.5 text-sm font-semibold text-white bg-rose-500 hover:bg-rose-600 rounded-full transition-all duration-200 shadow-sm hover:shadow-md">
+              Login
+            </a>
+          </div>
+        <% } %>
+      </div>
     </div>
+
+    <!-- Mobile Navigation -->
+    <% if(isLoggedIn) { %>
+      <div class="lg:hidden border-t border-gray-200 py-3 overflow-x-auto">
+        <nav class="flex gap-2 min-w-max">
+          <a href="/home-list"
+            class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap transition-colors duration-150">
+            Home List
+          </a>
+          <a href="/favroute"
+            class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap transition-colors duration-150">
+            Favorites
+          </a>
+          <a href="/booking"
+            class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap transition-colors duration-150">
+            Booking
+          </a>
+          <a href="/host-home-list"
+            class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap transition-colors duration-150">
+            Host Home
+          </a>
+          <a href="/add-home"
+            class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap transition-colors duration-150">
+            Add Home
+          </a>
+        </nav>
+      </div>
+    <% } %>
   </div>
 </header>

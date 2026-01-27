@@ -1,5 +1,5 @@
 const { validationResult, check } = require("express-validator");
-
+import User from "../models/user";
 exports.getLogin = (req, res) => {
   res.render("auth/login", {
     pageTitle: "Login",
@@ -87,6 +87,33 @@ exports.postSignup = [
       });
     }
 
+    const user = new User({
+      name: name,
+      email: email,
+      password: password,
+      role: role,
+    });
+
+    user
+      .save()
+      .then(() => {
+        res.redirect("/login");
+      })
+      .catch((err) => {
+        return res.status(422).render("auth/signup", {
+          pageTitle: "Signup",
+          // isloggedIn: false, ✅ FIXED CASE
+          isLoggedIn: false,
+          errorMessages: errors.array(),
+          oldInput: {
+            name: name,
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword,
+            role: role,
+          },
+        });
+      });
     console.log(req.body);
     res.redirect("/login");
   },

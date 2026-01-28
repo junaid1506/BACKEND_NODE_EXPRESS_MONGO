@@ -1,7 +1,7 @@
 // Core modules
 const path = require("path");
 
-// External modules 
+// External modules
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -32,6 +32,7 @@ const store = new MongoDBStore({
 
 /* -------------------- MIDDLEWARE -------------------- */
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(
   session({

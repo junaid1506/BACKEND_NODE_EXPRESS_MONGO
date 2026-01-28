@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const { validationResult, check } = require("express-validator");
 const User = require("../models/user");
 exports.getLogin = (req, res) => {
@@ -8,6 +9,7 @@ exports.getLogin = (req, res) => {
   });
 };
 exports.postLogin = (req, res) => {
+  console.log(req.body);
   // res.cookie("isLoggedIn", true); // ✅ correct
   req.session.isLoggedIn = true;
   res.redirect("/");
@@ -70,7 +72,7 @@ exports.postSignup = [
   (req, res, next) => {
     const { name, email, password, confirmPassword, role } = req.body;
     const errors = validationResult(req);
-    console.log(errors.array());
+    // console.log(errors.array());
     if (!errors.isEmpty()) {
       return res.status(422).render("auth/signup", {
         pageTitle: "Signup",
@@ -87,34 +89,33 @@ exports.postSignup = [
       });
     }
 
-    const user = new User({
-      name: name,
-      email: email,
-      password: password,
-      role: role,
-    });
-
-    user
-      .save()
-      .then(() => {
-        res.redirect("/login");
-      })
-      .catch((err) => {
-        return res.status(422).render("auth/signup", {
-          pageTitle: "Signup",
-          // isloggedIn: false, ✅ FIXED CASE
-          isLoggedIn: false,
-          errorMessages: errors.array(),
-          oldInput: {
-            name: name,
-            email: email,
-            password: password,
-            confirmPassword: confirmPassword,
-            role: role,
-          },
-        });
+    bcrypt.hash(password, 12).then((hashedPassword) => {
+      const user = new User({
+        name: name,
+        email: email,
+        password: hashedPassword,
+        role: role,
       });
-    console.log(req.body);
-    // res.redirect("/login");
+      user
+        .save()
+        .then(() => {
+          res.redirect("/login");
+        })
+        .catch((err) => {
+          return res.status(422).render("auth/signup", {
+            pageTitle: "Signup",
+            // isloggedIn: false, ✅ FIXED CASE
+            isLoggedIn: false,
+            errorMessages: errors.array(),
+            oldInput: {
+              name: name,
+              email: email,
+              password: password,
+              confirmPassword: confirmPassword,
+              role: role,
+            },
+          });
+        });
+    });
   },
 ];

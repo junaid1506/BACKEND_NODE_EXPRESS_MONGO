@@ -1,5 +1,5 @@
 const { validationResult, check } = require("express-validator");
-import User from "../models/user";
+const User = require("../models/user");
 exports.getLogin = (req, res) => {
   res.render("auth/login", {
     pageTitle: "Login",
@@ -115,6 +115,6 @@ exports.postSignup = [
         });
       });
     console.log(req.body);
-    res.redirect("/login");
+    // res.redirect("/login");
   },
 ];

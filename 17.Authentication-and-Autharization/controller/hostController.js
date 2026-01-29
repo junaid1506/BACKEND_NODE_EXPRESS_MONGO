@@ -82,7 +82,7 @@ exports.postEditHome = (req, res, next) => {
 exports.postDeleteHome = (req, res, next) => {
   const homeId = req.params.homeId;
 
-  console.log(homeId);
+  // console.log(homeId);
   Home.findByIdAndDelete(homeId)
     .then(() => {
       return favourites.findOneAndDelete({ homeId: homeId });

@@ -26,7 +26,7 @@ exports.getHome = (req, res, next) => {
 exports.getFavroute = async (req, res, next) => {
   const userId = req.session.user._id;
   const user = await User.findById(userId).populate("favoriteList");
-  console.log("USER FAVORITES", user);
+  // console.log("USER FAVORITES", user);
   res.render("store/favouriteList", {
     registerHomes: user.favoriteList,
     pageTitle: "airbnb Favourite-List",

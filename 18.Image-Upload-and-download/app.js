@@ -32,6 +32,7 @@ const store = new MongoDBStore({
 });
 
 /* -------------------- MIDDLEWARE -------------------- */
+app.use(multer().single("image")); // For handling multipart/form-data (file uploads)
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 

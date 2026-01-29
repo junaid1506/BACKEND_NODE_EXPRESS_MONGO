@@ -6,12 +6,43 @@ exports.getLogin = (req, res) => {
     pageTitle: "Login",
     // isloggedIn: false,
     isLoggedIn: false,
+    user: {},
   });
 };
-exports.postLogin = (req, res) => {
-  console.log(req.body);
-  // res.cookie("isLoggedIn", true); // ✅ correct
+exports.postLogin = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "Login",
+      isLoggedIn: false,
+      errorMessages: ["Invalid email or password"],
+      oldInput: { email },
+      user: {},
+    });
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "Login",
+      isLoggedIn: false,
+      errorMessages: ["Invalid email or password"],
+      oldInput: { email },
+      user: {},
+    });
+  }
+
+  // ✅ STORE ONLY SAFE DATA
   req.session.isLoggedIn = true;
+  req.session.user = {
+    _id: user._id.toString(), // 🔑 VERY IMPORTANT
+    email: user.email,
+    role: user.role,
+  };
+
+  await req.session.save();
   res.redirect("/");
 };
 
@@ -26,6 +57,7 @@ exports.getSignup = (req, res) => {
     pageTitle: "Signup",
     // isloggedIn: false,
     isLoggedIn: false,
+    user: {},
   });
 };
 
@@ -78,6 +110,7 @@ exports.postSignup = [
         pageTitle: "Signup",
         // isloggedIn: false, ✅ FIXED CASE
         isLoggedIn: false,
+        user: {},
         errorMessages: errors.array(),
         oldInput: {
           name: name,
@@ -106,6 +139,7 @@ exports.postSignup = [
             pageTitle: "Signup",
             // isloggedIn: false, ✅ FIXED CASE
             isLoggedIn: false,
+            user: {},
             errorMessages: errors.array(),
             oldInput: {
               name: name,

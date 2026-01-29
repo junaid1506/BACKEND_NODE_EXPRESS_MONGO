@@ -1,5 +1,6 @@
 const Home = require("../models/home");
 const Favourites = require("../models/favourites");
+const user = require("../models/user");
 
 exports.getIndex = (req, res, next) => {
   console.log("isLoggedIn", req.session);
@@ -8,6 +9,7 @@ exports.getIndex = (req, res, next) => {
       registerHomes: registerHomes,
       pageTitle: "airbnb Home",
       isLoggedIn: req.isLoggedIn,
+      user: req.session.user,
     });
   });
 };
@@ -17,6 +19,7 @@ exports.getHome = (req, res, next) => {
       registerHomes: registerHomes,
       pageTitle: "airbnb Home-list",
       isLoggedIn: req.isLoggedIn,
+      user: req.session.user,
     });
   });
 };
@@ -32,6 +35,7 @@ exports.getFavroute = (req, res, next) => {
         registerHomes: favouriteHomes,
         pageTitle: "airbnb Favourite-List",
         isLoggedIn: req.isLoggedIn,
+        user: req.session.user,
       });
     });
   });
@@ -53,6 +57,7 @@ exports.getBooking = (req, res, next) => {
   res.render("store/booking", {
     pageTitle: "My Bookings",
     isLoggedIn: req.isLoggedIn,
+    user: req.session.user,
   });
 };
 exports.postFavourites = (req, res, next) => {
@@ -86,6 +91,7 @@ exports.getHomeDetails = (req, res, next) => {
       pageTitle: "Home Details",
       home: home,
       isLoggedIn: req.isLoggedIn,
+      user: req.session.user,
     });
   });
 };

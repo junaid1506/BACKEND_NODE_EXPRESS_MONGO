@@ -2,12 +2,14 @@
 
 const favourites = require("../models/favourites");
 const Home = require("../models/home");
+const user = require("../models/user");
 
 exports.getAddHome = (req, res, next) => {
   res.render("host/editHome", {
     pageTitle: "Register Your Home",
     editing: false,
-    isLoggedIn : req.isLoggedIn
+    isLoggedIn : req.isLoggedIn,
+    user: req.session.user
   });
 };
 
@@ -16,7 +18,8 @@ exports.getHostHomeList = (req, res, next) => {
     res.render("host/hostHomeList", {
       registerHomes: registerHomes,
       pageTitle: "airbnb Host-Home-list",
-      isLoggedIn : req.isLoggedIn
+      isLoggedIn : req.isLoggedIn,
+      user: req.session.user
     });
   });
 };
@@ -33,7 +36,8 @@ exports.getEditHome = (req, res, next) => {
       pageTitle: "Edit Your Home",
       editing: editing,
       home: home,
-      isLoggedIn : req.isLoggedIn
+      isLoggedIn : req.isLoggedIn,
+      user: req.session.user
     });
   });
 };
@@ -49,7 +53,7 @@ exports.postAddHome = (req, res, next) => {
   });
 
   home.save();
-  res.render("host/successMsg", { pageTitle: "Home Registered Successfully" ,isLoggedIn : req.isLoggedIn});
+  res.render("host/successMsg", { pageTitle: "Home Registered Successfully" ,isLoggedIn : req.isLoggedIn,  user: req.session.user});
 };
 exports.postEditHome = (req, res, next) => {
   const { homeName, location, price, rating, description, imageUrl, id } =

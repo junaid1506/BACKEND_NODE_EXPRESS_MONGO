@@ -6,7 +6,7 @@ const homeSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   rating: { type: Number, required: true },
   description: String,
-  imageUrl: String,
+  image: String,
 });
 
 module.exports = mongoose.model("Home", homeSchema);

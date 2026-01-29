@@ -42,14 +42,16 @@ exports.getEditHome = (req, res, next) => {
   });
 };
 exports.postAddHome = (req, res, next) => {
-  const { homeName, location, price, rating, description, imageUrl } = req.body;
+  
+  const { homeName, location, price, rating, description, image } = req.body;
+  console.log(homeName, location, price, rating, description, image);
   const home = new Home({
     homeName,
     location,
     price,
     rating,
     description,
-    imageUrl,
+    image,
   });
 
   home.save();
@@ -60,7 +62,7 @@ exports.postAddHome = (req, res, next) => {
   });
 };
 exports.postEditHome = (req, res, next) => {
-  const { homeName, location, price, rating, description, imageUrl, id } =
+  const { homeName, location, price, rating, description, image, id } =
     req.body;
   Home.findById(id).then((home) => {
     home.homeName = homeName;
@@ -68,7 +70,7 @@ exports.postEditHome = (req, res, next) => {
     home.price = price;
     home.rating = rating;
     home.description = description;
-    home.imageUrl = imageUrl;
+    home.image = image;
 
     home
       .save()

@@ -19,7 +19,7 @@
         </p>
 
         <!-- Form -->
-<form action="/<%= editing ? "edit-home" : "add-home" %>" method="POST" class="space-y-6">
+<form action="/<%= editing ? "edit-home" : "add-home" %>" method="POST" class="space-y-6" enctype="multipart/form-data">
   <input type="hidden" name="id" value="<%= editing ? home._id : '' %>">
 
 
@@ -105,9 +105,10 @@
       Photo URL
     </label>
     <input
-      type="url"
-      name="imageUrl"
-      value="<%= editing ? home.imageUrl : ''   %>"
+      type="file"
+      name="image"
+      accept="image/*"
+      value="<%= editing ? home.image : ''   %>"
       placeholder="https://example.com/image.jpg"
       required
       class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent transition"

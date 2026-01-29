@@ -6,6 +6,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const multer = require("multer");
 
 // Routes / Controllers
 const { get404 } = require("./controller/error");

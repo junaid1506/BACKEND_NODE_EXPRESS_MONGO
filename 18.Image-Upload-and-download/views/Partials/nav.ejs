@@ -1,0 +1,75 @@
+<header class="bg-white sticky top-0 z-50 border-b border-gray-200">
+  <div class="max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
+    <div class="flex items-center justify-between py-4 gap-3 md:gap-0">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-1">
+        <svg class="w-8 h-8 text-rose-500" viewBox="0 0 32 32">
+          <path fill="currentColor"
+            d="M16 1c2 0 3.46 1.28 4.12 3.84l.03.14c.68 2.95.58 4.68-.63 7.35l-.08.18C18.14 15.05 16 18.5 16 21.95c0-3.45-2.14-6.9-3.44-9.44l-.08-.18c-1.21-2.67-1.31-4.4-.63-7.35l.03-.14C12.54 2.28 14 1 16 1z"/>
+        </svg>
+        <span class="hidden sm:block text-xl font-semibold text-rose-500">airbnb</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center">
+        <% if (isLoggedIn && user) { %>
+          <div class="flex items-center border border-gray-300 rounded-full shadow-sm hover:shadow-md transition-shadow duration-200">
+
+            <% if (user.role === "Guest") { %>
+              <a href="/home-list" class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 rounded-l-full border-r border-gray-300">Home List</a>
+              <a href="/favroute" class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 border-r border-gray-300">Favorites</a>
+              <a href="/booking" class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 rounded-r-full">Booking</a>
+            <% } %>
+
+            <% if (user.role === "Host") { %>
+              <a href="/host-home-list" class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 rounded-l-full border-r border-gray-300">Host Home</a>
+              <a href="/add-home" class="px-5 py-3 text-sm font-medium text-gray-800 hover:bg-gray-50 rounded-r-full">Add Home</a>
+            <% } %>
+
+          </div>
+        <% } %>
+      </nav>
+
+      <!-- Right side buttons -->
+      <div class="flex items-center gap-2">
+        <% if (isLoggedIn && user) { %>
+
+          <% if (user.role === "Host") { %>
+            <a href="/add-home" class="hidden md:block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-full transition duration-200">Airbnb your home</a>
+          <% } %>
+
+          <form action="/logout" method="POST">
+            <button type="submit" class="px-5 py-2.5 text-sm font-semibold text-white bg-rose-500 hover:bg-rose-600 rounded-full transition duration-200 shadow-sm hover:shadow-md">
+              Logout
+            </button>
+          </form>
+
+        <% } else { %>
+
+          <a href="/signup" class="px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-100 rounded-full transition duration-200">Sign up</a>
+          <a href="/login" class="px-5 py-2.5 text-sm font-semibold text-white bg-rose-500 hover:bg-rose-600 rounded-full transition duration-200 shadow-sm hover:shadow-md">Login</a>
+
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <% if (isLoggedIn && user) { %>
+      <div class="lg:hidden border-t border-gray-200 py-3 overflow-x-auto">
+        <nav class="flex gap-2 min-w-max">
+          <% if (user.role === "Guest") { %>
+            <a href="/home-list" class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap">Home List</a>
+            <a href="/favroute" class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap">Favorites</a>
+            <a href="/booking" class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap">Booking</a>
+          <% } %>
+
+          <% if (user.role === "Host") { %>
+            <a href="/host-home-list" class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap">Host Home</a>
+            <a href="/add-home" class="px-4 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full whitespace-nowrap">Add Home</a>
+          <% } %>
+        </nav>
+      </div>
+    <% } %>
+  </div>
+</header>

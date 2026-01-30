@@ -32,7 +32,41 @@ const store = new MongoDBStore({
 });
 
 /* -------------------- MIDDLEWARE -------------------- */
-app.use(multer().single("image")); // For handling multipart/form-data (file uploads)
+const randomString = (length) => {
+  let result = "";
+  const characters = "abcdefghijklmnopqrstuvwxyz";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, randomString(10) + "-" + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+const multerOptions = {
+  storage,
+  fileFilter,
+};
+
+app.use(multer(multerOptions).single("image")); // For handling multipart/form-data (file uploads)
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 

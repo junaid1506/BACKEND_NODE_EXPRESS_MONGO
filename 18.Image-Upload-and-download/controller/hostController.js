@@ -1,8 +1,8 @@
 // const Home = require("../models/home");
-
+const fs = require("fs");
 // const favourites = require("../models/favourites");
 const Home = require("../models/home");
-const user = require("../models/user");
+const User = require("../models/user");
 
 exports.getAddHome = (req, res, next) => {
   res.render("host/editHome", {
@@ -42,9 +42,8 @@ exports.getEditHome = (req, res, next) => {
   });
 };
 exports.postAddHome = (req, res, next) => {
-  
-  const { homeName, location, price, rating, description, image } = req.body;
-  console.log(homeName, location, price, rating, description, image);
+  const { homeName, location, price, rating, description } = req.body;
+  const image = req.file.path;
   const home = new Home({
     homeName,
     location,
@@ -56,38 +55,58 @@ exports.postAddHome = (req, res, next) => {
 
   home.save();
   res.render("host/successMsg", {
-    pageTitle: "Home Registered Successfully",
+    pageTitle: "Home Added Successfully",
     isLoggedIn: req.isLoggedIn,
     user: req.session.user,
   });
 };
-exports.postEditHome = (req, res, next) => {
-  const { homeName, location, price, rating, description, image, id } =
-    req.body;
-  Home.findById(id).then((home) => {
-    home.homeName = homeName;
-    home.location = location;
-    home.price = price;
-    home.rating = rating;
-    home.description = description;
-    home.image = image;
 
-    home
-      .save()
-      .then(() => {
-        res.redirect("/host-home-list");
-      })
-      .catch((err) => console.log(err));
-  });
+exports.postEditHome = (req, res, next) => {
+  const { homeName, location, price, rating, description, id } = req.body;
+
+  Home.findById(id)
+    .then((home) => {
+      if (!home) {
+        return res.status(404).send("Home not found");
+      }
+
+      home.homeName = homeName;
+      home.location = location;
+      home.price = price;
+      home.rating = rating;
+      home.description = description;
+
+      if (req.file) {
+        fs.unlink(home.image, (err) => {
+          if (err) console.log(err);
+        });
+
+        home.image = req.file.path;
+      }
+
+      return home.save();
+    })
+    .then(() => {
+      res.redirect("/host-home-list");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("Server Error");
+    });
 };
 
-exports.postDeleteHome = (req, res, next) => {
+exports.postDeleteHome = async (req, res, next) => {
   const homeId = req.params.homeId;
+  const userId = req.session.user._id;
+  const user = await User.findById(userId).populate("favoriteList");
 
-  // console.log(homeId);
   Home.findByIdAndDelete(homeId)
-    .then(() => {
-      return favourites.findOneAndDelete({ homeId: homeId });
+
+    .then(async () => {
+      if (user.favoriteList.includes(homeId)) {
+        user.favoriteList.pull(homeId);
+        await user.save();
+      }
     })
     .then(() => {
       res.redirect("/host-home-list");

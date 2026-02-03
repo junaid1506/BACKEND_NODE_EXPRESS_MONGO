@@ -13,10 +13,9 @@ const { get404 } = require("./controller/error");
 const storeRoutes = require("./routes/storeRouter");
 const { hostRouter } = require("./routes/hostRouter");
 const authRouter = require("./routes/authRouter");
-const rootDir = require("./utils/pathUtils");
 
 const app = express();
-
+const rootDir = require("./utils/pathUtils");
 /* -------------------- VIEW ENGINE -------------------- */
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -31,20 +30,23 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
-/* -------------------- MIDDLEWARE -------------------- */
+/* -------------------- RANDOM NAME -------------------- */
 const randomString = (length) => {
   let result = "";
-  const characters = "abcdefghijklmnopqrstuvwxyz";
-  const charactersLength = characters.length;
+  const chars = "abcdefghijklmnopqrstuvwxyz";
   for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return result;
 };
+
+/* -------------------- MULTER FIX -------------------- */
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    // ✅ Absolute path (IMPORTANT FIX)
     cb(null, "uploads/");
   },
+
   filename: (req, file, cb) => {
     cb(null, randomString(10) + "-" + file.originalname);
   },
@@ -61,12 +63,15 @@ const fileFilter = (req, file, cb) => {
     cb(null, false);
   }
 };
-const multerOptions = {
+
+const multerOptions = multer({
   storage,
   fileFilter,
-};
+});
 
-app.use(multer(multerOptions).single("image")); // For handling multipart/form-data (file uploads)
+/* -------------------- MIDDLEWARE -------------------- */
+
+app.use(multer(multerOptions).single("image"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -74,29 +79,37 @@ app.use(
   session({
     secret: "jndtech",
     resave: false,
-    saveUninitialized: false, // ✅ FIXED
+    saveUninitialized: false,
     store: store,
     cookie: {
       httpOnly: true,
-      secure: false, // set true only when using HTTPS
+      secure: false,
     },
   }),
 );
 
-/* -------------------- STATIC FILES -------------------- */
-app.use(express.static(path.join(rootDir, "public")));
+/* -------------------- STATIC FILES (FIXED) -------------------- */
 
-/* -------------------- AUTH STATE MIDDLEWARE -------------------- */
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/host/uploads", express.static(path.join(rootDir, "uploads")));
+app.use("/homes/uploads", express.static(path.join(rootDir, "uploads")));
+
+/* -------------------- AUTH STATE -------------------- */
+
 app.use((req, res, next) => {
-  req.isLoggedIn = req.session.isLoggedIn; // ✅ FIXED CASE
+  req.isLoggedIn = req.session.isLoggedIn;
   next();
 });
 
 /* -------------------- ROUTES -------------------- */
+
 app.use(authRouter);
 app.use(storeRoutes);
 
-/* -------------------- PROTECTED ROUTES -------------------- */
+/* -------------------- PROTECTED -------------------- */
+
 app.use((req, res, next) => {
   if (req.isLoggedIn) {
     next();
@@ -108,19 +121,22 @@ app.use((req, res, next) => {
 app.use(hostRouter);
 
 /* -------------------- 404 -------------------- */
+
 app.use(get404);
 
 /* -------------------- SERVER -------------------- */
+
 const PORT = 3000;
 
 mongoose
   .connect(DB_PATH)
   .then(() => {
-    console.log("Connected to MongoDB using Mongoose");
+    console.log("MongoDB Connected");
+
     app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
+      console.log(`Server running at http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
-    console.log("Error connecting to MongoDB", err);
+    console.log("MongoDB Error:", err);
   });

@@ -1,6 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { TodoItemsContext } from "../Store/todo-items-store";
+import { addItemToServer } from "../services/itemService";
 
 function EnterTodo({ setTodoItems }) {
   // let [enterName, setEnterName] = useState("");
@@ -8,15 +9,15 @@ function EnterTodo({ setTodoItems }) {
   const { todoItems } = useContext(TodoItemsContext);
   let enterNameElement = useRef();
   let enterDateElement = useRef();
-  const handelSubmit = (e) => {
+  const handelSubmit = async (e) => {
     e.preventDefault();
-    let newTodo = [
-      ...todoItems,
-      {
-        todoName: enterNameElement.current.value,
-        todoDate: enterDateElement.current.value,
-      },
-    ];
+
+    const severItem = await addItemToServer(
+      enterNameElement.current.value,
+      enterDateElement.current.value,
+    );
+
+    let newTodo = [...todoItems, severItem];
     setTodoItems(newTodo);
     enterNameElement.current.value = "";
     enterDateElement.current.value = "";

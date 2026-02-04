@@ -9,6 +9,10 @@ const app = express();
 const rootDir = require("./utils/pathUtils");
 const { get404 } = require("./controller/error");
 /* -------------------- VIEW ENGINE -------------------- */
+
+// routes
+const todoItemsRoutes = require("./routes/todoItemsRoutes");
+
 app.set("view engine", "ejs");
 app.set("views", "views");
 
@@ -20,6 +24,10 @@ const DB_PATH =
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// apis
+
+app.use(todoItemsRoutes );
 
 /* -------------------- 404 -------------------- */
 

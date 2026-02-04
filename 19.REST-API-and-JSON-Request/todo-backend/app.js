@@ -4,6 +4,7 @@ const path = require("path");
 // External modules
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 const rootDir = require("./utils/pathUtils");
@@ -24,10 +25,11 @@ const DB_PATH =
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
 
 // apis
 
-app.use(todoItemsRoutes );
+app.use(todoItemsRoutes);
 
 /* -------------------- 404 -------------------- */
 

@@ -5,7 +5,7 @@ import { TodoItemsContext } from "../Store/todo-items-store";
 function EnterTodo({ setTodoItems }) {
   // let [enterName, setEnterName] = useState("");
   // let [enterDate, setEnterDate] = useState("");
-  const {todoItems} = useContext(TodoItemsContext);
+  const { todoItems } = useContext(TodoItemsContext);
   let enterNameElement = useRef();
   let enterDateElement = useRef();
   const handelSubmit = (e) => {
@@ -34,6 +34,7 @@ function EnterTodo({ setTodoItems }) {
             // onChange={(e) => {
             //   setEnterName(e.target.value);
             // }}
+            required
           />
         </div>
         <div className="col-4">
@@ -44,6 +45,7 @@ function EnterTodo({ setTodoItems }) {
             // onChange={(e) => {
             //   setEnterDate(e.target.value);
             // }}
+            required
           />
         </div>
         <div className="col-2">

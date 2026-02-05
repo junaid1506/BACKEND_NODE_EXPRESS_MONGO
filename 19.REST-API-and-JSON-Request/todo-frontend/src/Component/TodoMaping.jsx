@@ -10,9 +10,10 @@ const TodoMaping = () => {
       {todoItems.map((todo) => (
         <>
           <MainTodo
-            key={todo.todoName}
-            todoName={todo.todoName}
-            todoDate={todo.todoDate}
+            key={todo._id}
+            todoName={todo.title}
+            todoDate={new Date(todo.date).toLocaleDateString()}
+            todoId={todo._id}
           />
         </>
       ))}

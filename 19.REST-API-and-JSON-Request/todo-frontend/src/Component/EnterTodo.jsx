@@ -17,7 +17,7 @@ function EnterTodo({ setTodoItems }) {
       enterDateElement.current.value,
     );
 
-    let newTodo = [...todoItems, severItem];
+    let newTodo = [severItem, ...todoItems];
     setTodoItems(newTodo);
     enterNameElement.current.value = "";
     enterDateElement.current.value = "";

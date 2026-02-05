@@ -5,12 +5,32 @@ import TodoMaping from "./Component/TodoMaping";
 import { useState } from "react";
 import WelcomeMsg from "./Component/WelcomeMsg";
 import { TodoItemsContext } from "./Store/todo-items-store";
+import { deleteItemFromServer, getItemsFromServer } from "./services/itemService";
+import { useEffect } from "react";
 
 function App() {
   const [todoItems, setTodoItems] = useState([]);
-  const deleteTodo = (todoName) => {
-    const newTodo = todoItems.filter((item) => item.todoName !== todoName);
-    setTodoItems(newTodo);
+
+  const loadTodoItems = async () => {
+    try {
+      const data = await getItemsFromServer();
+      setTodoItems(data);
+    } catch (error) {
+      console.error("Error loading todo items:", error);
+    }
+  };
+  useEffect(() => {
+    loadTodoItems();
+  }, []);
+
+  const deleteTodo = async (_id) => {
+    try {
+      await deleteItemFromServer(_id);
+      const newTodo = todoItems.filter((item) => item._id !== _id);
+      setTodoItems(newTodo);
+    } catch (error) {
+      console.error("Error deleting todo item:", error);
+    }
   };
   return (
     <>
@@ -20,7 +40,7 @@ function App() {
         <center className="todocontainer">
           <AppName />
           <div className="center">
-            <EnterTodo setTodoItems={setTodoItems}/>
+            <EnterTodo setTodoItems={setTodoItems} />
             <WelcomeMsg />
             <TodoMaping />
           </div>

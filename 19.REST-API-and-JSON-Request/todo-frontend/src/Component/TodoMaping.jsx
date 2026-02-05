@@ -3,8 +3,7 @@ import MainTodo from "./MainTodo";
 import { TodoItemsContext } from "../Store/todo-items-store";
 
 const TodoMaping = () => {
-
-  const {todoItems} = useContext(TodoItemsContext)
+  const { todoItems } = useContext(TodoItemsContext);
 
   return (
     <>

@@ -20,4 +20,22 @@ const addItemToServer = async (title, date) => {
   }
 };
 
-export { addItemToServer };
+const getItemsFromServer = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching items from server:", error);
+    throw error;
+  }
+};
+export { addItemToServer, getItemsFromServer };

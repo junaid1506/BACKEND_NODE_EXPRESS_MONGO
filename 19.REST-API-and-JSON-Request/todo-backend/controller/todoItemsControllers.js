@@ -14,3 +14,12 @@ exports.createItems = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+exports.getItems = async (req, res) => {
+  try {
+    const todoItems = await TodoItem.find().sort({ timestamp: -1 });
+    res.status(200).json(todoItems);
+  } catch (err) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

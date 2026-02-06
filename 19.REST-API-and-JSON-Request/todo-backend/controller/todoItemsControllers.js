@@ -33,3 +33,17 @@ exports.deleteItem = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+exports.getCompleteItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedItem = await TodoItem.findByIdAndUpdate(
+      id,
+      { completed: true },
+      { new: true },
+    );
+    res.status(200).json(updatedItem);
+  } catch (err) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

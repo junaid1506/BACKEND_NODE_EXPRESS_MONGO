@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { TodoItemsContext } from "./Store/todo-items-store";
 
 import {
+  completeItemOnServer,
   deleteItemFromServer,
   getItemsFromServer,
 } from "./services/itemService";
@@ -38,8 +39,26 @@ function App() {
     }
   };
 
+  const toggleComplete = async (_id) => {
+    try {
+      await completeItemOnServer(_id);
+      const newTodo = todoItems.map((todo) => {
+        if (todo._id === _id) {
+          return { ...todo, completed: true };
+        }
+        return todo;
+      });
+      // console.log(newTodo);
+      setTodoItems(newTodo);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <TodoItemsContext.Provider value={{ todoItems, deleteTodo }}>
+    <TodoItemsContext.Provider
+      value={{ todoItems, deleteTodo, toggleComplete }}
+    >
       {/* Main Wrapper */}
       <div className="min-h-screen bg-gray-100 flex justify-center items-start pt-12 px-4">
         {/* Card Container */}

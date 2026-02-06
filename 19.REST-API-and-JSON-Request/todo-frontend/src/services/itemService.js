@@ -56,4 +56,23 @@ const deleteItemFromServer = async (id) => {
   }
 };
 
-export { addItemToServer, getItemsFromServer, deleteItemFromServer };
+const completeItemOnServer = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:3000/complete/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error("Error completing item on server:", error);
+    throw error;
+  }
+};
+
+export {
+  addItemToServer,
+  getItemsFromServer,
+  deleteItemFromServer,
+  completeItemOnServer,
+};

@@ -13,6 +13,7 @@ const TodoMaping = () => {
           todoName={todo.title}
           todoDate={new Date(todo.date).toLocaleDateString()}
           todoId={todo._id}
+          completed={todo.completed}
         />
       ))}
     </div>
